@@ -3,6 +3,7 @@ require "heap_sort"
 describe Array do
   describe "#heap_sort" do
     it "sorts an unsorted array" do
+      # debugger
       arr = [4,2,1,3,5,7,8,9]
       arr.heap_sort!
 

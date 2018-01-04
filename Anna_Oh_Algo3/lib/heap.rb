@@ -1,3 +1,5 @@
+require 'byebug'
+
 class BinaryMinHeap
   attr_reader :store, :prc
 
