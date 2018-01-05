@@ -5,7 +5,7 @@ class Array
     # first heapify
     i = 1
     while i < self.length
-      BinaryMinHeap.heapify_up(self, i, i+1)
+      BinaryMinHeap.heapify_up(self, i, i + 1)
       i += 1
     end
 

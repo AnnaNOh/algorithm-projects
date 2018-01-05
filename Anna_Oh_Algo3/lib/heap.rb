@@ -29,6 +29,7 @@ class BinaryMinHeap
   end
 
   public
+  # made these class methods so for heap sort it will be easier to write
   def self.child_indices(len, parent_index)
     result = []
 
