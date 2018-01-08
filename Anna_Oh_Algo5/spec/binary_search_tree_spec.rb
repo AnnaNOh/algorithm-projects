@@ -1,5 +1,6 @@
 require 'rspec'
 require 'binary_search_tree'
+require 'byebug'
 
 describe BinarySearchTree do
   let(:bst) { BinarySearchTree.new }
@@ -165,6 +166,8 @@ describe BinarySearchTree do
   describe '#in_order_traversal' do
     it 'visits left children, then itself, then right children' do
       in_order_array = [0, 1, 1.5, 2, 3, 4, 5, 7, 9, 10]
+      # debugger
+      p prefilled_bst.in_order_traversal
       expect(prefilled_bst.in_order_traversal).to eq(in_order_array)
     end
   end

@@ -1,6 +1,7 @@
 # There are many ways to implement these methods, feel free to add arguments
 # to methods as you see fit, or to create helper methods.
 require 'bst_node'
+require 'byebug'
 
 class BinarySearchTree
   attr_accessor :root
@@ -57,6 +58,7 @@ class BinarySearchTree
   def delete(value)
     deleted = self.find(value)
     return nil if deleted == nil
+    # return nil if deleted.parent == nil
 
     # both left and right are nil
     if deleted.left == nil && deleted.right == nil
@@ -140,8 +142,39 @@ class BinarySearchTree
     true
   end
 
+  # did not get this one to work in the end
   def in_order_traversal(tree_node = @root, arr = [])
-    
+    result = arr
+
+    # until tree_node == nil
+    #   current_node = tree_node
+    #   until current_node.left == nil
+    #     current_node = current_node.left
+    #   end
+    #   result << current_node.value
+    #   p result
+    #   self.delete(current_node.value)
+    # end
+
+    # until @root == nil
+    #   result << self.maximum.value
+    #   self.delete(maximum.value)
+    # end
+    # return result.reverse
+
+
+    current_node = [tree_node]
+    prev_node = [tree_node]
+    while current_node.length != 0
+      current_node = []
+      prev_node.each do |node|
+        current_node << node.left if node.left != nil
+        current_node << node.right if node.right != nil
+        result << node.value
+      end
+      prev_node = current_node
+    end
+    return result.sort!
   end
 
 
