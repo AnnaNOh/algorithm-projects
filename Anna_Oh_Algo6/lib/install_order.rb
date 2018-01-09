@@ -28,10 +28,12 @@ def install_order(arr)
   end
 
   # make edges
+  # vertex's index is its value -1
   edges = []
   arr.each do |el|
-    edges << Edge.new(vertices[el[0]-1], vertices[el[1]-1])
+    edges << Edge.new(vertices[el[0] - 1], vertices[el[1] - 1])
   end
 
-  topological_sort(vertices).map { |vertex| vertex.value }.reverse!
+  # call topo sort, but for some reason I need to reverse it . . .
+  topological_sort(vertices).map(&:value).reverse!
 end

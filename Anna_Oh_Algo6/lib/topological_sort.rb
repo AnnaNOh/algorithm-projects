@@ -33,7 +33,8 @@ def topological_sort(vertices)
     []
   end
 
-  # this one doesn't work right now because it is missing cyclic or unconnected graphs
+  # this one doesn't work right now because it is missing cyclic or unconnected graph
+  # fix at another time and try again with this method
   # unsorted = Hash.new
   # zero = []
   # temp = []
