@@ -79,6 +79,8 @@ class BinarySearchTree
       else
         deleted.parent.right = promoted
       end
+      promoted.parent = deleted.parent
+
     # two children, so get largest node in the left subtree
     else
       promoted = self.maximum(deleted.left)
@@ -91,6 +93,7 @@ class BinarySearchTree
       end
       # promotes its own children to its spot
       promoted.parent.right = promoted.left
+      promoted.parent = deleted.parent
 
     end
     return deleted
