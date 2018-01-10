@@ -37,3 +37,15 @@ def install_order(arr)
   # call topo sort, but for some reason I need to reverse it . . .
   topological_sort(vertices).map(&:value).reverse!
 end
+
+
+## mock int q2
+# make all vertexes by iterating through arr
+# make edges
+# call topo sort
+
+def install_order2(arr)
+  vertices = Hash.new
+
+
+end
