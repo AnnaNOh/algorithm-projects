@@ -146,6 +146,7 @@ class DynamicProgramming
         end
         return table
 
+  # doesn't work. need to keep at it.
   #   num_items = weights.length
    #
   #   weight_hash = {}
@@ -177,5 +178,6 @@ class DynamicProgramming
   end
 
   def maze_solver(maze, start_pos, end_pos)
+
   end
 end
