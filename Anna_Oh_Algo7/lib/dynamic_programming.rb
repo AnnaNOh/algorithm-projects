@@ -19,6 +19,7 @@ class DynamicProgramming
     frog_cache[n]
   end
 
+
   def frog_cache_builder(n)
     # base case
     frog_cache = { 1 => [[1]], 2 => [[1, 1], [2]], 3 => [[1, 1, 1], [1, 2], [2, 1], [3]] }
@@ -181,3 +182,5 @@ class DynamicProgramming
 
   end
 end
+
+# their solution

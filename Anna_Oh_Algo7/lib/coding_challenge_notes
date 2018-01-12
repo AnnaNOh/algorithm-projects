@@ -1,0 +1,79 @@
+
+Coding Challenges
+super fun chance to learn, practice and show what you can do
+
+the better you do, the more you can address concerns about your lack of experience
+
+HackerX - coding interface online. similar to white boarding but more challenging
+because the code actually has to run
+
+
+Why Coding Challenges?
+-test real world programming skills rather than abstract CS stuff (takehomes)
+-Gives the employer a chance to explore your limits
+-Gives insight into your development style and process
+Becoming ever more popular as an interview step. Can come any point in the process.
+(writes notes. good git history. expand the project beyond what is required.)
+
+
+Variations - Algorithms
+HackerRank style
+Get used to the Stdin/Stout paradigm
+Get used to how data gets input into the code
+
+
+Variations - Takehomes
+Different timing schemes if it has a suggested time, most students end up
+spending more time
+Build a frontend that uses our API - mockups, interactivity, etc.
+Build a piece of backend functionality - API endpoints, dataset parser,
+build a RDBMs, etc.
+Build a full-stack mini-site - use this data, implement a system that
+accesses and updates it on the frontend
+More vague - build something that does "this"
+
+*********
+Note to self:
+- Ask people to the cigar bar to have friends to talk to (say it's a restaurant)
+  - Tyler + Omar
+  - J Ray
+  - Jeff the Chef + Bo
+  - Henry and Jay
+
+Superlatives
+Most likely to survive out in the wild
+Best Disney Princess
+Secret Serial Killer
+The Yes Man
+Will live the longest life
+
+**********
+
+Keys to Success - Getting started
+Questions and Clarifications
+-Don't be afraid to seek clarification on the setup and expectations.
+Obviously try to be self-sufficient, but seeking clarification is a
+good quality in an engineer
+-Document your assumptions
+Tech Stack
+-Choose your tech tack, libraries, frameworks wisely. Make sure you
+stick to what they are expecting. -Sometimes they don't want you to use
+certain libraries and frameworks.
+
+
+Design Diagrams and Wireframes
+- Make sure you know what the final product will look like or how it will function
+Class/Component/File/DB Structure and follows
+- Make a plan for all the features and details of the component pieces (UML)
+Brainstorming Bonus Features and Tests
+- Think about this ahead of time!!!
+
+
+Final Product
+Deliverables - the required final product
+Bonus Features  - Are you setting yourself apart? Did you go beyond? At least you should mention bonus directions in your ReadMe.
+Comments - Help out the engineers. he more pleasan their experience with your code, the more they will like you.
+Tests - Testing makes you look good
+Notes on your choices/process/bugs - keep track! you will be asked to talk about your coding challenge! They hav seen many different ones!
+Refactoring - Make it better
+ReadMe! - Explain features, choices and approach. Discuss other directions.
