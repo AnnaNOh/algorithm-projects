@@ -1,4 +1,5 @@
-// Not LeetCode but something done on the side for recursion practice 
+// COMPLETED
+// Not LeetCode but something done on the side for recursion practice
 
 const fibArray = function(n) {
   const arr = [1,1];

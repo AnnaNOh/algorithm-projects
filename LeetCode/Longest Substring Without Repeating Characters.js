@@ -1,3 +1,5 @@
+// COMPLETED
+
 /**
  * @param {string} s
  * @return {number}
