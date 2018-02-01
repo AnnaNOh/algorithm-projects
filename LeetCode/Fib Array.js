@@ -1,4 +1,6 @@
 // COMPLETED
+
+// Fibonacci Array 
 // Not LeetCode but something done on the side for recursion practice
 
 const fibArray = function(n) {
