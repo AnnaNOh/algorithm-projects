@@ -14,6 +14,9 @@
 // Output: "bb"
 
 
+// having trouble with inconsistent output
+
+
 var longestPalindrome = function(s) {
   let result = s[0];
   let i1 = 0;
