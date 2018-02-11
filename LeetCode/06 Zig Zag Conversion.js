@@ -12,3 +12,10 @@
 //
 // string convert(string text, int nRows);
 // convert("PAYPALISHIRING", 3) should return "PAHNAPLSIIGYIR".
+
+// my approach
+// how about take take 0, 4, 8, 12, etc first until it hits the end of the string length
+// then take 1, 3, 5, 7, (so the odds)
+// then take 2, 6, 10, etc
+
+ 
