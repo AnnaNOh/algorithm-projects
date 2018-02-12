@@ -32,3 +32,14 @@ E = { {v1, v2} {v1,v3}, {v1, v4}, {v2, v5}, }
 
 Digraph: a directed graph
 Undirected graph (no special name for this)
+
+Social Networks are undirected graphs
+Follows are digraphs
+
+
+World wide web is a digraph
+Page A can have a link to page B but page B doesn't need to have a link to page A.
+
+Graph Traversal
+Weighted vs unweighted
+Label edges with weights. Like highways connecting different cities. The lengths are different.
