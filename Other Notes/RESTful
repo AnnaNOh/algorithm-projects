@@ -1,13 +1,42 @@
 
-What RESTful actually means What is REST? REST stands for Representational State Transfer. It is a set of design principles for making network communication more scalable and flexible. Answers what the components of the system are, how they communicate with each other. How to swap out different parts of the system at any time. How the system can be scaled to serve billions of users. Roy T. Fielding first coined the term REST in 2000. REST is a generic set of principles that can be applied to other networks.
+What RESTful actually means What is REST?
+REST (Representational State Transfer) is a set of design principles for making network communication more scalable and flexible.
 
-Constraints to be RESTful
-Client server
-Network must be made up of clients and servers. A server is a computer that has resources of interest and a client is a computer that wants to interact wit the resources stored on the server. When browsing the Internet, your computer is a client and sends HTTP requets to a server. The non-RESTful alterntive is an event-based integration architecture. In this model, each component continuously broadcasts events while listening for pertinent events from other components. There's no one-to-one communication, only broadcasting and eavesdropping.
+Answers what the components of the system are, how they communicate with each other. How to swap out different parts of the system at any time. How the system can be scaled to serve billions of users.
 
-Stateless
-Servers and clients do not need to keep track of each other's state. When a client is not interacting with the server, te server has no idea of its existence. The server also does not keep a record of past requests. Each request is standalone.
+Roy T. Fielding first coined the term REST in 2000. REST is a generic set of principles that can be applied to other networks.
 
-Uniform interface
-Common language between servers and clients. Achieved with 4 sub-constraints: identification of resources, manipulation of resources through representation, self-descripitive messages and hypermedia
-Identification of Resources:
+Constraints to be RESTful:
+- Client server
+Network must be made up of clients and servers.
+A server is a computer that has resources of interest and a client is a computer that wants to interact wit the resources stored on the server. When browsing the Internet, your computer is a client and sends HTTP request to a server.
+The non-RESTful alternative is an event-based integration architecture. In this model, each component continuously broadcasts events while listening for pertinent events from other components. There's no one-to-one communication, only broadcasting and eavesdropping.
+
+- Stateless
+Servers and clients do not need to keep track of each other's state. When a client is not interacting with the server, the server has no idea of its existence. The server also does not keep a record of past requests. Each request is standalone.
+
+-Uniform interface
+Common language between servers and clients.
+Achieved with 4 sub-constraints:
+  -Identification of Resources:
+    -each resource must be uniquely identified by a "stable" (does not change across interactions and does not change even when the state of the resource changes. Instead if the resource does get moved to another identifier, the server should give the client a response indicating that the request was bad and give a link to the new location of the resource) identifier
+    -The Web uses URI to identify resources and HTTP as its communication standard. Client makes a HTTP GET request to the URI that identifies that resource. Every time you type an address into your browser, your browser makes a GET request to that URI. If it receives a 200 OK response and an HTML document back, it will then render the page in the window.
+  -Manipulation of resources through representations:
+    -client manipulates resources by sending representations to the server (usually a JSON object)
+    -server should have full control of the resources and clients can make requests to server of what they would like, but server has ultimate control still
+  -Self-descriptive messages
+    -self-descriptive messages have all the info that recipients need to understand it.
+  -Hypermedia
+    -Hypermedia (data sent from the server to the client that contains information about what further requests the client can make)
+    -in REST, only servers should be sending hypermedia to clients
+    -HTML is a type of hypermedia
+
+3 more Fielding Constraints:
+-Caching
+  -client stores previous responses it received from the server
+  -made possible by self descriptive messages
+-Layered system
+  -there can be more components than just servers and clients
+    -proxies
+    -gateways
+-Code on demand
