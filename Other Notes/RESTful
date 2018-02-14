@@ -1,0 +1,13 @@
+
+What RESTful actually means What is REST? REST stands for Representational State Transfer. It is a set of design principles for making network communication more scalable and flexible. Answers what the components of the system are, how they communicate with each other. How to swap out different parts of the system at any time. How the system can be scaled to serve billions of users. Roy T. Fielding first coined the term REST in 2000. REST is a generic set of principles that can be applied to other networks.
+
+Constraints to be RESTful
+Client server
+Network must be made up of clients and servers. A server is a computer that has resources of interest and a client is a computer that wants to interact wit the resources stored on the server. When browsing the Internet, your computer is a client and sends HTTP requets to a server. The non-RESTful alterntive is an event-based integration architecture. In this model, each component continuously broadcasts events while listening for pertinent events from other components. There's no one-to-one communication, only broadcasting and eavesdropping.
+
+Stateless
+Servers and clients do not need to keep track of each other's state. When a client is not interacting with the server, te server has no idea of its existence. The server also does not keep a record of past requests. Each request is standalone.
+
+Uniform interface
+Common language between servers and clients. Achieved with 4 sub-constraints: identification of resources, manipulation of resources through representation, self-descripitive messages and hypermedia
+Identification of Resources:
