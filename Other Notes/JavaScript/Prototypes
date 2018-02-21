@@ -1,0 +1,89 @@
+JavaScript - Prototypes
+https://javascript.info/function-prototype
+
+F.prototype
+__proto__ can be used to set a prototype in modern JavaScript
+
+
+New F() creates a new object.
+The newly created object’s [[Prototype]] is set to F.prototype
+
+Example:
+Let animal = { 
+eats: true 
+};
+
+Function Rabbit(name) { 
+	This.name = name;
+}
+
+Rabbit.prototype = animal;
+Let rabbit = new Rabbit(“White Rabbit); // rabbit.__proto__ == animal
+alert(rabbit.eats); // true
+
+
+Default F.prototype, constructor property
+Every function has a prototype property even if we don’t explicitly give it one.
+The default prototype is an object with only the property constructor that points back to the function itself.
+
+Example:
+Function Rabbit() {}
+// default prototype
+// Rabbit.prototype = {constructor: Rabbit};
+
+We can check it:
+Function Rabbit() {}
+alert( Rabbit.prototype.constructor == Rabbit);  // true
+
+
+We can use constructor to create a new object using the same constructor as the existing one.
+Example:
+Function Rabbit(name){
+	This.name = name;
+	alert(name);
+}
+Let Rabbit = new Rabbit(“white rabbit”);
+Let Rabbit2 = new Rabbit(“black rabbit”);
+
+
+IMPORTANT thing about constructor is that JavaScript itself does NOT ensure the right “constructor” value. 
+
+For instance:
+Function Rabbit() {}
+Rabbit.prototype = {
+	Jumps: true
+};
+Let Rabbit = new Rabbit();
+alert(Rabbit.constructor == Rabbit); // false 
+
+
+To keep the right “constructor”, just add/remove properties to the default “prototype” instead of overwriting it as a whole.
+
+Example:
+Function Rabbit() {}
+Rabbit.prototype.jumps = true
+
+Or recreate the constructor property manually.
+
+Example:
+Rabbit.prototype = {
+	Jumps: true,
+	Constructor: Rabbit
+};
+
+
+Summary
+Set up objects’ prototype with a constructor function
+
+F.prototype is not the same as [[Prototype]]
+F.prototype only sets [[Prototype]] of new objects when a new F() is called.
+
+F.prototype’s value needs to be either an object or null. Other values won’t work.
+
+By default all functions have F.prototype = { constructor: F } 
+On regular objects, the prototype is nothing special. 
+Example:
+Let user  = {
+	Name: “John”,
+	Prototype: “Bla-bla” // no magic at all
+};
