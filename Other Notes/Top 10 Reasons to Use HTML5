@@ -1,0 +1,38 @@
+1.
+
+2.
+
+3.
+
+4.
+
+5. Better Interactions
+<canvas> HTML5’s drawing tag that lets you do most interactive and animated possibilities than Flash
+HTML5 also has other APIs as well:
+-Drag and Drop (DnD)
+-Offline storage database
+-Browser history management
+-document editing
+-Timed media playback
+
+6. Smarter Storage
+A cross between regular old cookies and client side database, the new local storage feature for HTML5 is better than cookies because it allows for storage across multiple windows, better security and performance and data persists even after the browser is closed. 
+It’s part of how HTML5 makes web apps possible without third party plugins. Being able to store data in user’s browsers allow you to easily create app features like: storing user information, caching data, and loading user’s previous application state. 
+
+7. Cleaner Code
+NEW <section> <article> <header> <footer> <aside> and<nav> tags keep code cleaner
+
+8. Doctype
+<!DOCTYPE html> is all that’s needed for doctype
+
+
+9. Video and Audio Support
+<video> and <audio> is easier than using <embed> and <object> tags
+Example: <video src=”url” width=”640px” height=”380px” autoplay/>
+ 
+10. Accessibility
+Semantics and ARIA 
+HTML headings are more readable than traditional <div>
+ARIA is a W3C spec that is used to specific “roles” to elements in an HTML document.
+ 
+
