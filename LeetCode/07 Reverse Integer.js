@@ -33,7 +33,11 @@ var reverse = function(x) {
 
   let i = 0;
   while (i < xString.length){
-    result = xString[i] + result;
+    if (xString[i] === "-"){
+      result = result + xString[i];
+    } else {
+      result = xString[i] + result;
+    }
     i += 1;
   }
 

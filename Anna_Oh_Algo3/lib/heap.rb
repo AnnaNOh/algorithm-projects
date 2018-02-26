@@ -1,5 +1,10 @@
 require 'byebug'
 
+react
+redux -> relay (store + network ware)
+graphQL
+
+
 class BinaryMinHeap
   attr_reader :store, :prc
 
