@@ -1,0 +1,96 @@
+CSS Grid Changes Everything
+https://www.youtube.com/watch?v=7kVeCqQCxlk
+
+Speaker: Morten Rand-Hendriksen
+Check out his website: morten.com
+
+His website's layout is responsive to different screen sizes with solely html and css.
+
+DO NOT BOOTSTRAPS. We can do better.
+
+Currently: One dimensional layout
+Solution: Two dimensional layout
+
+
+CSS Grid needs new terminology
+
+Grid container - element containing a grid. defined by setting
+display: grid;
+Grid item - element that is a direct descendant of the grid container
+Grid line - horizontal (row) or vertical (column) line separating the grid into sections. Grid lines are referenced by number, starting and ending with the outer orders of the grid.
+
+Grid cell - the intersection between a grid row and a grid column. Like a table cell.
+
+Grid area - rectangular area between four specified grid lines. Can cover one or more cells.
+
+Grid track - the space between two or more adjacent grid lines. Row tracks are horizontal. Column tracks are vertical.
+
+Grid gap - empty space between grid tracks. Commonly called gutters.
+
+
+Take the site container. Make it a grid
+display: grid;
+
+Draw grid lines. Takes list of length values (em, px, %, fr, etc) denoting the distance between each line
+grid-template-columns: 2fr 1fr 1fr;   <= these are 2 fractions 1 fraction and 1 fraction so its 1/2 1/4 1/4
+grid-template-rows: 2fr 1fr 1fr;
+
+Grid items automatically populate grid from top left to bottom right based on HTML source order.
+If you do not want the automatic, you can assign column and rows to the items.
+
+grid-column: 2/4;
+grid-row: 2/3;
+Defines the start and end grid lines for the column and rows. (start at 2 and ends at 4 column wise)
+
+.site{
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: auto 1fr 3fr;
+  grid-template-areas:
+    "title title title"
+    "main header header"
+    "main sidebar footer";
+}
+applied to grid container. uses a text-based grid map to apply grid area names to individual cells
+then you can do ...
+.masthead {
+  grid-area: header;
+}
+.page-title {
+  grid-area: title;
+}
+.main-content {
+  grid-area: main;
+}
+
+
+Nested grids - grids are not inherited by child elements. Instead we create nested grids.
+Great for designing by the component level
+
+All modern browsers support CSS Grid.
+Emerging technology, but the New York Times uses it.
+
+
+TO TEST FOR BACKWARDS COMPATIBILITY:
+Use feature queries to test for grid support in current browser.
+@supports (display: grid) { ... }
+
+Edge does not have grid area auto and other certain grid specs even though it does have grid.
+
+Serve the mobile experience for all browsers that do not support grid.
+
+Argues that all browsers do not need to look the same. Just the best for that browser.
+Progressive Enhancement of web design standards.
+
+
+1. Build accessible mobile-first layout without grid.
+2. Use mobile-first layout as fallback for all browsers.
+3. User @supports to detect grid support
+4. At the appropriate breakpoint, create layout with grid and grid-areas
+5. Explore new layouts as viewport widens
+
+User FireFox when you develop because FireFox has a grid inspector.
+
+Rachel Andrew's Grid by Example is doctrine. (https://gridbyexample.com/)
+MDN and CSS Tricks has lots of info too
+Kuhn is a great example for CSS grid
