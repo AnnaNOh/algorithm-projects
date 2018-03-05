@@ -1,0 +1,44 @@
+Graph Traversals: Breadth First and Depth First
+Video by: Abhinav Tripathi
+
+https://www.youtube.com/watch?v=bIA8HEEUxZI
+
+Graph is:
+A - B - F - C - H
+      - E - (E and G)
+  - G
+  - D - (D and F)
+
+
+Depth First Search
+Result: A B E G
+
+Stack:
+G -> no more unvisited. so pop off stack
+E -> no more unvisited. so pop off stack.
+B -> F is left. push F onto stack. add F to visited(result)
+A
+
+Once stack is empty, traversal is complete
+
+Start with a point.
+Add it to result.
+Add it to the stack.
+Add one of its children to the stack and result.
+Check child's children add to stack and result.
+Until child has no child.
+Then push off stack until there is a child unvisited.
+Stop once stack is empty.
+
+
+Breadth First Search
+Result: A B D G E
+Queue: B D G E F
+
+Check A.
+Add its children to queue (B, D, G)
+Then check the first in queue, B.
+Add its children to result and queue (F)
+Then pop off B from queue.
+Then check D who was next in queue. D doesn't have anything. Pop off D.
+Continue til queue is empty.
