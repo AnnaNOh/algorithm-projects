@@ -3,3 +3,40 @@ Data Structures: Graph Representation Part 02: Adjacency Matrix
 video by: mycodeschool
 
 https://www.youtube.com/watch?v=9C2cpQZVRBA&index=41&list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P
+
+
+We could represent the graph by storing a list of vertexes and a list of edges, but this is inefficient for many operations.
+
+
+
+Unweighted graph
+Each vertex has an index
+
+Vertex List:  0 => A
+              1 => B
+              2 => C
+              ...
+              7 => H
+Adjacency Matrix representation of edges:
+    0 1 2 3 4 5 6 7
+----------------------
+0   0 1 1 1 0 0 0 0
+1   1 0 0 0 1 1 0 0
+2   1 0 0 0 0 0 1 0
+3   1 0 0 0 0 0 0 1
+4   0 1 0 0 0 0 0 1
+5   0 1 0 0 0 0 0 1
+6   0 0 1 0 0 0 0 1
+7   0 0 0 1 1 1 1 0
+-----------------------
+
+Aij = 1 if there is an edge from i to j
+      0 if there is not an edge from i to j
+
+
+Operation                           Time cost
+finding adjacent nodes              O(v)
+finding if two nodes are connected  O(1) + O(v)
+
+If the graph is sparse, then this representation is inefficient.
+Would waste a ton of memory

@@ -1,0 +1,51 @@
+
+Data Structures: Graph Representation part 03 - Adjacency List
+Video by: mycodeschool
+
+https://www.youtube.com/watch?v=k1wraWzqtvQ&index=42&list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P
+
+Most real world graphs are sparse
+The zeros are redundant. If there is no 1, then it must be 0.
+
+The new representation would be:
+0 | 1 2 3
+1 | 0 4 5
+2 | 0 6
+3 | 0 7
+4 | 1 7
+5 | 1 7
+6 | 2 7
+7 | 3 6 4 5
+
+space = O(e)
+AND in most graphs e << v**2
+
+Operations                          Time Cost
+finding if two nodes are connected  O(v)
+finding all adjacent nodes          O(v)
+
+This method saves space, but it doesn't save time.
+Time complexity shows worst case, but this representation works better in real world applications.
+
+In the real world,
+for a social network with a billion(10^9) users:
+  -If maximum # of friends is 10k
+  -If machine can scan 10^6 cells/second
+Operation:                          structure 1 (matrix)    structure 2(list)
+finding adjacent nodes              10^9/10^6 = 1000 secs   10^4/10^6 = 10ms
+finding if two nodes are connected  1/10^6 = 1 micro secs   10ms
+
+
+struct Node {
+  int data;
+  struct Node * next;
+};
+
+Could have a linked list with all the neighbors of the nodes
+0 A[pointer to 400] => 1[address is 400] => 2[450] => 3[500] => end[0]
+1 => 0 => 4 => 5
+2 => 0 => 6
+3 => 0 => 7
+
+Instead of a linked list, use a binary search tree to store neighbors.
+It'll be more efficient.
