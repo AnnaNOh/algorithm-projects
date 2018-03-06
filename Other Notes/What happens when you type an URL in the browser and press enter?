@@ -1,0 +1,6 @@
+What happens when you type an URL in the browser and press enter?
+https://medium.com/@maneesha.wijesinghe1/what-happens-when-you-type-an-url-in-the-browser-and-press-enter-bb0aa2449c1a
+
+1. You type maps.google.com into the address bar of your browser
+2. The browser checks the cache for a DNS record to find the corresponding IP address of maps.google.com
+DNS (Domain Name System) is a database that maintains the name of the website (URL) and the particular IP address it links to. every single URL on the internet had a unique IP address assigned to it.
