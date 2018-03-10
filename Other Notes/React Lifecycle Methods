@@ -1,0 +1,52 @@
+React Lifecycle Methods - how and when to use them 
+Author: Scott Domes
+
+https://engineering.musefind.com/react-lifecycle-methods-how-and-when-to-use-them-2111a1b692b1
+
+Life of a React Component 
+  Birth (pre-mounting)
+
+  willMount
+  didMount
+  willReceiveProps
+  shouldUpdate
+  willUpdate
+  render
+  didUpdate
+  willUnmount
+
+  Death(unmounting)
+
+componentWillMount 
+  Before component appears on the screen.
+  Not much to do because there is no component to play with yet, so can't do anything with the DOM
+  Nothing should have changed since your component's constructor was called, which is where you should be setting up your 
+  component's default configuration anyway.
+  -Only exception is any setup that can only be done at runtime 
+  -DO NOT use to setState
+ 
+ componentDidMount 
+  Load data here. Because, there is no guarantee that AJAX request won't resolve before the component mounts, but it is guaranteed here
+  Do all the setup. (ex. draw on <canvas> elements. Initialize a masonry grid layout. Add event listeners.)
+ 
+ componentWillReceiveProps
+  has access to both next props(nextProps) and current props(this.props) 
+  
+  You should:
+  1. check which props will change (big flaw of componentWillReceiveProps is that it's sometimes called when nothing has changed; 
+  React just wants to check in)
+  2. If the props will change significantly, act on it
+  
+  Example Code:
+    componentWillReceiveProps(nextProps) {
+      if (this.props.percent !== nextProps.percent) {
+        this.setUpCircle(nextProps.percent)
+      }
+    }
+  Another caveat of componentWillReceiveProps is that it's not called on initial render.
+  
+  shouldComponentUpdate
+  
+  
+      
+  
