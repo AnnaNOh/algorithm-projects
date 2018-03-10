@@ -1,1 +1,81 @@
+What the heck is the event loop anyway? 
+By: Philip Roberts (JSConfEU 2014)
+https://www.youtube.com/watch?v=8aGhZQkoFbQ&t=
+
+
+JavaScipt - a single threaded, non-blocking, asynchronous, concurrent language
+  has a call stack, an event loop, a callback queue, some other apis and stuff
+  
+JavaScript
+  Heap - where memory allocation happens
+  Call Stack - where execution and contexts happen
+
+WebAPIs (from the browser)
+  DOM
+  Ajax
+  netTimeout
+ 
+ The call stack is single threaded so it can only call one thing at a time
+ The call stack shows where in the code the code is at.
+ 
+Example Code:
+function multiply(a, b) {
+  return a * b;
+}
+
+function square(n) {
+  return multiply(n, n)
+}
+function printSquqare(n) {
+  var squared = sqaure(n);
+  console.log(sqaured);
+}
+printSquare(4);
+
+The Call Stack for this example is:
+multiply()
+square()
+printSquare()
+main()
+
+
+Blocking - what happens when things are slow
+network requests are slow 
+so ...
+var foo = $.getSync('//foo.com');
+console.log(foo); <= waits for the network request. is slow.
+
+This is an issue, because the browser is not responsive (can't render or run any code) while it's blocked.
+The solution is an asynchronous callback.
+
+Example Code:
+console.log('Hi');
+setTimeout(function cb() {
+  console.log('there');
+  }, 5000);
+
+console.log('JSConfEU');
+
+Call Stack for this Example:
+log('Hi') =>  setTimeout cb =>  done. (WebAPI is still running though)       
+main()        main()
+
+WebAPI
+timer() cb
+Once the WebAPI is done with the timer, it will push it to the Task Queue.
+
+Event loop looks at the stack and the task queue. If the stack is empty it will push the first thing from the task queue back 
+to the stack.
+
+setTimeout(function cb) { console.log('there'); }, 0); is done to defer that execution of code until the stack is cleared.
+
+
+Don't put sluggish things in the callstack. 
+Make them asynch
+For instance, scroll hunters are slow, because you're flooding the call stack with queued events 
+
+
+
+
+
 
