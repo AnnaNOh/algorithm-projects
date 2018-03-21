@@ -62,6 +62,13 @@ componentWillMount
     
     
   componentWillUpdate 
-    
+   
+  render
+  
+  didUpdate
+  
+  willUnmount
+  
+  
     
   
