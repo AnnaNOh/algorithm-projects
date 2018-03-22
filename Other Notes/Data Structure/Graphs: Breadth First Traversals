@@ -1,0 +1,7 @@
+Breadth First Traversal or BFS for a Graph 
+https://www.geeksforgeeks.org/breadth-first-traversal-for-a-graph/
+
+Start with a node. Add all unvisited nodes into the result array.
+Use a boolean visited array to avoid processing a node more than once.
+
+*Assumes all vertices are reachable from the starting vertex
