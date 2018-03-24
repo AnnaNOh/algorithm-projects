@@ -1,2 +1,25 @@
 React 
 
+A Brief History 
+Facebook made XHP, a PHP(Hypertext Preprocessor) that integrated XML-like language and could defend against Cross Site Scripting(XSS) attacks. 
+XHP could condense entire PHP elements into single HTML-like tags that could be used elsewhere in the codebase, but its performance was terrible. 
+
+React was made when they had the idea to use XHP's integration of XML-like syntax and tags in a JavaScript library.
+It was first used in 2011 by Facebook. 
+
+React and Angular are one of the most popular libraries for front-end development. 
+
+
+Concepts
+Single Page App - has only one backend route that renders HTML. Asynchronous Ajax requests send and retrieve information to the backend and React updates the relevant portion of the page. 
+Virtual DOM - DOM (Document Object Model) is a tree structure where each node represents an HTML element. Virtual DOM is a simpler and faster abstraction of the HTML DOM. 
+Diffing Algorithm - 
+JSX - 
+Enzyme and Jest - 
+
+Other frameworks and libraries
+jQuery - most popular JavaScript library in use, allows developers to manipulate the DOM
+Vue - 
+Angular - 
+Ember - 
+React Native
