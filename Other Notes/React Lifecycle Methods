@@ -62,12 +62,28 @@ componentWillMount
     
     
   componentWillUpdate 
+    After committing to updating, component asks "want me to do anything before I re-render?"
+    Never really use componentWillUpdate. It's functionally the same as componentWillReceiveProps except you aren't allowed to call this.setSetate.
+    If you used shouldComponentUpdate AND needed to do something when props change, then you can use it.
+    Most Common Use Case: used instead of componentWillReceiveProps on a component that also has should ComponentUpdate (but it has no access to previous props)
    
   componentDidUpdate
-  
+    Do the same stuff we did in componentDidMount (reset masonry layout, redraw canvas, etc) even though we did this in componentWillReceiveProps
+    In componentDidUpdate you don't know why it updated.
+    Use it to rearrange the grid after the DOM itself updates 
+    Most Common Use Case: updating DOM with prop or state changes
+    Can call setState?: Yes
+    
   componentWillUnmount
+    Before the component goes away, you can cancel any outgoing network requests or remove all element listeners associated with the component
+    
+    example:
+    componenetWillUnmount() {
+      window.removeEventListener('resize', this.resizeListener)
+    }
   
-  
+    Most Common Use Case: Cleaning any leftover debris from your component
+    Can call setState?: No
 
   
   
