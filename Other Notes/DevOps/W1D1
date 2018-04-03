@@ -198,18 +198,92 @@ Course Content
   - bound by request queueing/threading/child processes
   - may optionally manage the application
   - examples:
-    - nginx (now nginx grew to 30%)
-    - apache (a few years ago 90% of the world was using apache)
+    - Nginx (now nginx grew to 30%)
+    - Apache (a few years ago 90% of the world was using apache)
 
 
+  Database
+  - typically master/slave
+  - master is read/write
+  - slave is read only, used for large reads, also used for backups
+  - master uses transaction log shipping to update slave
+  - singular in nature
+  - can be a major bottleneck, cpu bound
+  - can be optimized by:
+    - read/write separation
+    - query optimization
+    - microservices
+    - async
+
+  databases (1 single point of truth)
+  database indexes -> key to making database faster
+  sharding - split the data out
+
+  Load Balancers
+  - provides a single IP that will forward TCP/HTTP packets to other hosts
+    - primary point of contact so it has the IP address
+  - may provide an SSL service
+    - goes through a handshake. secure here. encryption.
+  - may allow dynamic hosts
+  - very fast
+  - on HTTP will set custom headers
+  - common options:
+    - hardware
+    - HAProxy
+    - Nginx
+    - DNS/GeoDNS
+
+  CDNs
+  - specifically HTTP Cache, often used for static assets
+  - may sit beside or in front of your web server
+  - good CDNs are located globally and use geo dns
+  - invalidation is very tricky
+  - China has separate providers
+  - Proprietary Networks:
+    - Akamai
+    - Cloudfront (AWS's)
+    - ChinaCache
+  -Technologies:
+    - Squid
+    - Varnish
+
+  - Like for images, which don't change very much. Client the browser, keeps the image and draws it from local
+  - Can read the image header and decide how long to keep the image on local
+  - Caching images
+  - Cache Control Headers
 
 
+  Job runner
+  - sometimes you need to run jobs that are slow
+  - if you do this in a web request it will timeout
+  - job runner needs to communicate asynch to other processes
+  - typically will use a queue
+  - scheduled tasks:
+    - cron
+    - celery (django)
+    - resque/delayed job
 
+  Cache
+  - application cache vs http cache
+  - very fast storage, typically in memory
+  - great for storing results to frequent queries
+  - invalidation can be a problem
+  - memcached
+    - older and larger community source base
+    - simple data types
+    - HTTP cache integration
+  - redis
+    - more modern, but less robust
+    - complex data types
+    - often hand-rolled solutions
 
-
-
-
-
+  Summary
+  - processes often communicate via the network addressable via a URL
+  - A production web environment often combines many network services together
+  - dedicated hardware per service allows us to customize the machine resources per the services requirements, eliminating wasted resources
+  - load balancers allows traffic to a single endpoint to be shared across multiple machines
+  - due to the nature of data, databases are the most difficult to scale across multiple machines
+  - caching allows us to not do unnecessary processing, saving time and money
 
 
 
