@@ -1,0 +1,24 @@
+How the Domain Name System(DNS) works and how you can make it better.
+Author: Nikolas O'Donnell
+
+https://medium.freecodecamp.org/the-domain-name-system-dns-is-the-backbone-of-the-internet-heres-how-it-all-works-5706d0afa0fa
+
+DNS is often called the backbone of the internet.
+
+If it's the first time the user has gone to this website, 
+This happens when you type google.com in the browser:
+1. A user asks their browser to visit google.com
+2. Browser queries a DNS Resovler (usually their ISP) where's google.com?
+3. DNS Resolver queries the Root servers  "where is .COM?" Redirects to another domain name server(in this Verisign)
+4. DNS Resolver now queries Verisign "where is google.com?" Redirects with the IP address 
+5. Hosting servers are queried with the IP address. "Give me the files for IP address ---.----.---.-"
+6. Website files are delivered and rendered on the page
+
+IANA (Internet Assigned Numbers Authority) - organization that maps domain names and IP address 
+ICANN (Internet Corporation for Assigned Names and Numbers) - organization that provides the technical operations of vital DNS resoursces and defines the policies 
+for how the names and numbers of the Internet should run.
+
+ICANN believe that all users of the Internet deserve a say in how it's run. Wide variety of representatives
+
+
+IANA and ICANN go hand in hand and collaborate. 

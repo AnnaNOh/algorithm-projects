@@ -15,3 +15,14 @@
 // isMatch("ab", ".*") → true
 // isMatch("aab", "c*a*b") → true
 //
+Approach
+So the first input (s) must be of longer or equal length of p unless there is a *
+
+* can be multiple letters or zero
+. can only be any 1 letter
+
+check p for first letter of s or *
+  if it is *, check p 1 space before where * is 
+if the next letter for p is the next letter of s or * 
+
+  

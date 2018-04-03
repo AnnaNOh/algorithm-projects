@@ -1,0 +1,91 @@
+React Lifecycle Methods - how and when to use them 
+Author: Scott Domes
+
+https://engineering.musefind.com/react-lifecycle-methods-how-and-when-to-use-them-2111a1b692b1
+
+Life of a React Component 
+  Birth (pre-mounting)
+  willMount
+  didMount
+  willReceiveProps
+  shouldUpdate
+  willUpdate
+  render
+  didUpdate
+  willUnmount
+  Death(unmounting)
+
+
+componentWillMount 
+  Before component appears on the screen.
+  Not much to do because there is no component to play with yet, so can't do anything with the DOM
+  Nothing should have changed since your component's constructor was called, which is where you should be setting up your 
+  component's default configuration anyway.
+  -Only exception is any setup that can only be done at runtime 
+  -DO NOT use to setState
+ 
+ 
+ componentDidMount 
+  Load data here. Because, there is no guarantee that AJAX request won't resolve before the component mounts, but it is guaranteed here
+  Do all the setup. (ex. draw on <canvas> elements. Initialize a masonry grid layout. Add event listeners.)
+ 
+ 
+ componentWillReceiveProps
+  has access to both next props(nextProps) and current props(this.props) 
+  
+  You should:
+  1. check which props will change (big flaw of componentWillReceiveProps is that it's sometimes called when nothing has changed; 
+  React just wants to check in)
+  2. If the props will change significantly, act on it
+  
+  Example:
+    componentWillReceiveProps(nextProps) {
+      if (this.props.percent !== nextProps.percent) {
+        this.setUpCircle(nextProps.percent)
+      }
+    }
+  Another caveat of componentWillReceiveProps is that it's not called on initial render.
+  
+  
+  shouldComponentUpdate
+    We have new props, but our component asks for permission first.
+     
+    Example:
+      shouldComponentUpdate(nextProps, nextState) {
+        return this.props.engagement !== nextProps.engagement
+        || nextState.input !== this.state.input
+      }
+     
+   shouldComponentUpdate should ALWAYS return a boolean. 
+   The default is that it is always returns true. 
+   Use it to reduce wasted renders and improve performance => have it update only if props you care about changed
+    
+    
+  componentWillUpdate 
+    After committing to updating, component asks "want me to do anything before I re-render?"
+    Never really use componentWillUpdate. It's functionally the same as componentWillReceiveProps except you aren't allowed to call this.setSetate.
+    If you used shouldComponentUpdate AND needed to do something when props change, then you can use it.
+    Most Common Use Case: used instead of componentWillReceiveProps on a component that also has should ComponentUpdate (but it has no access to previous props)
+   
+  componentDidUpdate
+    Do the same stuff we did in componentDidMount (reset masonry layout, redraw canvas, etc) even though we did this in componentWillReceiveProps
+    In componentDidUpdate you don't know why it updated.
+    Use it to rearrange the grid after the DOM itself updates 
+    Most Common Use Case: updating DOM with prop or state changes
+    Can call setState?: Yes
+    
+  componentWillUnmount
+    Before the component goes away, you can cancel any outgoing network requests or remove all element listeners associated with the component
+    
+    example:
+    componenetWillUnmount() {
+      window.removeEventListener('resize', this.resizeListener)
+    }
+  
+    Most Common Use Case: Cleaning any leftover debris from your component
+    Can call setState?: No
+
+  
+  
+    
+  
