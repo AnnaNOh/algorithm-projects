@@ -41,7 +41,7 @@ Course Content
   5 dockers are wrap the binaries and the system cores so you can do that instead of having 5 virtual machines
   Containerization
 
-  
+
   Processes
   Networking
   A standard production stack
@@ -52,3 +52,172 @@ Course Content
     Queues
     Job runners
     Cache & CDNs
+
+
+  Processes - OS (operating system)
+      The OS is responsible for:
+        -allowing multiple processes to run simultaneously
+          -context switching
+            -the OS swaps states and moves it to RAM and moves all the previous state/code to the CPU and to start running that again
+        -restrict processes based on user permissions
+          -OS doesn't let you access memory directly. you can change a variable value and it will adjust the memory for you
+        -allow these processes to share resources
+          -RAM(memory) with "colliding"
+          -Hard drive access according to user permissions
+          -Network usage - ports
+          -Other devices
+
+  Processes - A single processes
+    - Each process has its own ID (process ID)
+    - Programs you write are typically "interpreted"
+    - Alternatively, "compiled" programs are usually written in C (or C++)
+    - A program written in C has to make system calls (eg. malloc) to interact with system Resources
+      -malloc is memory allocation
+    - System calls are functions that the operating system in required to provide in the C language (glibc)
+
+    - code written in Ruby still requires system calls through the OS to access resources
+
+  Processes - As a tree
+    It's hierarchical.
+    Processes have parent processes. The ultimate parent is the kernel.
+
+    Some commands to see this:
+      - sudo ps aux
+
+      - brew install pstree
+      - pstree
+
+  Processes - Interaction
+    - environment variables - OS concept. When the process is launched you can assign to that process the environment.
+    - /prc is actually a view to the running systems on your linux machine
+
+    -system calls to access resources
+    -environment variables are static over process lifetime
+    -Stdin, Stdout, Stderr are ways to accept text input from a keyboard, and write text output to a screen
+      -Standard in and Standard out and Standard error
+      -There is 1 pipe (stdin) in and 2 pipes out (stdout and stderr)
+      - Stdin is typically typing on the terminal
+    - Signals are ways for outside processes to trigger your process, similar to an event listener
+      - Inside the OS there are 16 different signals that are predefined.
+      - Signals interrupt the process and says "hey I got this signal" and then your process can attack signal handles
+      - example Ctrl C sends a signal to interrupt
+      - example Ctrl D sends a signal to kill
+
+    - Optionally, the process can ask the OS for access to the networking interface, which will assign a port number to your process.
+      - Networking allows you to interact and send signals from a different computer now
+      - Process has to make a system call called socket to be able to accept these network signals
+      - tells port that you need a port number. need it to send network packet to the correct place (ex. slack or world or warcraft)
+      - https -> uses port 443
+      - http -> uses port 80
+            In your own time look up the:
+            The OSI Stack
+              - has 7 layers
+              - ignore presentaation and session?
+
+              - physical layer (the problems of using the physical medium to send binary code)
+              - the network layer (gives you IP(internetwork protocol) addresses)
+                - network interface controllers (NICs) - your comp has 2. 1 for ethernet and 1 for wireless
+      - each process can open 1 or more ports
+      - ports are the thing determined which process will recive an inbound packet
+      - ports are either TCP or UDP
+        - TCP is stateful. knows if it gets there or not. used for everything else in the world. (learn this one)
+        - UDP is faster but less reliable. does not know if it gets there. better for streaming for live video
+      - each network device has a MAC addresses
+      - any connected device also has an IP address
+
+
+  Networking - IP Routing
+    - IP addresses give you proximal location
+    - you and your neighbor will have similar IP addresses
+    - Comcast hooks your modem to a router and it's located under your street corner. And that router    assigns the address for you and your neighbors
+    - if you're curious look up NAPS on network traversal or NAP holepunching
+
+
+  Networking - DNS
+    - DNS maps a human readable domain to an IP address
+      - DNS is a global directory
+      - DNS is hierarchical
+      - Domains can have subdomains as children
+      - the root of this tree are the 13 root-servers
+      - multiple domains may map to the same IP address
+      - per DNS request only 1 IP response
+        (example appacademy.io => 104.28.30.159)
+
+  **(Look at Mitch's article on web sockets and apply a chat function to Instagram clone)
+
+
+  Networking - URLs
+    https://www.appacademy.io/immersive/courses
+    <protocol> :// <subdomains>.<domain>/<path>
+
+    A full URL is different
+    postgres://myuser:mypass@db.coolsite.com:5432/mydb
+    <protocol>://<user>:<password>@<subdomains>.<domain>:<port>/<path>
+
+
+  Summary so Far
+    - all code is executed as a process
+    - processes have multiple ways to communicate with their environment, including environmental variables
+
+  Scaling a web application
+    - the goal of scaling is to serve more traffic by adding more hardware
+    - linear scaling is desirable (2x machines = 2x traffic processed)
+    - databases are hardest to scale
+    - how to scale:
+      - break stack into individual process groups
+      - dedicate machine to only one process group
+      - analyze and track the resources of that process
+      - minimize the amount of resources on the machine as necessary to decrease cost
+      - scale horizontally by adding more machines
+    - to scale effectively, the load has to be shared evenly across the available servers
+    - statelessness between requests makes it easier to scale
+
+
+  The stack
+                                                OS
+     -user browser  -  Internet  -(  web application  -  DB )
+
+  Application servers
+  - this is the backend code that you write
+  - runs inside an WS (web server) interface (RACK, WSGI, CGI, etc)
+  - typically will be multi-threaded/multi-process
+  - silo-ed with a shared DB
+  - monolithic vs microservices
+  - horizontally scalable
+  - least often the bottleneck, but may be CPU/Memory bound
+
+  WS Interface
+  -a web server interface provides a common way for a web server to interact with a web application
+
+  Web Servers
+  - provides a customizable gateway for performing HTTP level actions
+  - redirections (e.g. to www. or https)
+  - authentication/authorization
+  - SSL endpoint
+  - performance optimization (timeout)
+  - bound by request queueing/threading/child processes
+  - may optionally manage the application
+  - examples:
+    - nginx (now nginx grew to 30%)
+    - apache (a few years ago 90% of the world was using apache)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ---
