@@ -41,6 +41,26 @@ They detect changes in the code repository and trigger set jobs or tasks.
       - based on a single file .tavis.ylm that resides in the root of your code
       - Travis knows what should be done without any need to explicitly define the flow.
       - Strongly dependent on GIT. Do not use with other version control systems.
-      
+        - but with GIT, you can basically forget that CI even exists because it's so easy
+        - Travis will detect changes in your code when it is pushed to the repo and will email you a notification if there are any issues
+        .travis.ylm is convenient but it comes at a cost. When complicated things are needed, Travis can't cope
+
+  Tools Summary
+  - Author's opinion is that Jenkins + Travis > Hudson and Bamboo
+  - Truly, it is a matter of personal choice and type of project
+
+  - For new projects Travis is great
+  - Jenkins fulfills corporate needs
+    - But it requires additional setup, maintenance and admin work
+
+
+
+
+
+
+
+
+
+
 
 ---
