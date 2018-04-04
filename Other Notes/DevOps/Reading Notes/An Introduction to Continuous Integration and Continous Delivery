@@ -1,0 +1,64 @@
+An Introduction to Continuous Integration and Continuous Delivery
+W1D2 Reading
+https://caylent.com/continuous-integration-continuous-delivery-intro/
+Written by: Caylent Team
+
+
+Continuous Integration
+- A development practice that ensures that your application is always in a good state
+  - Anything in your master or pre-production branch is in working order and never stays broken for long
+- To do this, you need well written tests so that code can be merged quickly
+  - Can also have integration tests
+  - Integration tests are more effective when you have a CD pipeline that is deploying your master branch to a development environment and running the integration tests
+- Also need an alerting method when integration tests fail to catch issues
+- Need to test database migrations or config changes before production
+  - Having a development environment similar to your production environment is a safe way to test these changes
+
+Continuous Delivery
+- An automated way to deploy your application to an environment
+- Can involve multiple automated/manual steps including integration testing, performance testing or manual testing
+- (Netflix is known to have a completely automated continuous delivery system)
+- Your application needs to designed so that it is not affected by temproary outages when a new version is deployed
+- Basic CD systems have 2 environments.
+  - 1. Developer environment - where new features are tested and integrated
+  - 2. Production environment - where application is exposed to the Internet
+
+Simple CI/CD Pipeline
+- CI pipeline is usually triggered when code is checked into an integration branch by a developer.
+- Unit tests are run to ensure basic functionality is correct and then binaries are built.
+- Binaries created can be a JAR or a Zip file or even a Docker container
+- CD can be triggered after a successful build or timed.
+- CD pipelines are typically in dev environments triggered by every successful build
+- Deployment to production can be automatic or require manual sign off
+- Jenkins, TeamCity, and Spinnaker can help you setup and manage deployments, but it can be difficult.
+- Hosted solutions like Caylent, Heroku, or Amazon's Elastic Beanstalk provid easy to use solutions.
+
+How to Code Your Applications
+- Think about microservices
+- In order for CD to work well, your application may be restarted at any time.
+- For cloud environments this can happen without warning and is at the mercy of your cloud provider.
+- 2 things can help your application restart gracefully:
+  1. rolling updates
+  2. implementation of readiness checks
+    - Simple: waiting for your application's health check to respond 'OK'
+- need to think of backwards compatibility and use your dev environment to test how the new features interact with the old ones
+
+Common Issues
+- Make sure all changes are backwards compatible
+- Monitor your app and create a set of alerts based on normal behaviors and load for your application in each environment (even dev)
+  - don't let you dev environment become unstable
+
+Integration Tests
+- Using containers makes its easier to isolate individual parts fo your application and create mocks that can exercise your application
+  - Docker Compose is a great tool for setting up small integration environments to run tests against
+- Automate integration tests if you can. These tests run before and after application binaries have been built
+
+Canaries Help You Avoid Disasters
+- Canary deployment is a more advanced way to ensure that deployed code is working as intended.
+- Canary deployment deploys a single instance to an environment and monitors it for a period of time.
+- If any anomalies are detected, the instance is shut down and deployment will stop.
+- It requires a good understanding of your application's normal behavior and having an alert setup to asset that each instance is behaving correctly
+
+
+FINISHED
+---
