@@ -1,0 +1,182 @@
+W1D2 Dev Ops with Gene Hallman
+
+AWS
+
+Not going to use physical hardware but cloud services.
+Most startups are working on AWS.
+
+Regions
+EC2
+RDS
+S3
+CloudFront
+Certificate Manager
+Route 53
+CloudWatch
+OpsWork
+Other services
+API, Tokens & CLI
+
+
+AWS
+- AWS allows you to get access to computing hardware, and pay per hour
+- They offer many different machine sizes (different resource allocations) at different pricing rates
+- On top of this base offering, there are many different services available
+- Other services though are typically just convenience or utility on top of these servers
+- S3 is a little different, its storage that's pay per data transfer and storage used
+- Most AWS services use open source technology at their core
+
+  Cloud Services. Take a server you don't own and get access to it for some time.
+  Need dedicated machines for streaming media. Otherwise, virtual machine is prob fine.
+  5 cents an hour for their base line instance.
+
+  EC2 is a way to get access to a physical hardware.
+  All the other services are built on EC2.
+  RDS does ..
+  S3 is a distributed storage system.
+
+
+Regions
+  - everything except S3 in AWS is specific to a region
+  - AWS has data centers around the world and each is managed independently
+  - For us in California, there are 2 data centers close to us
+  - Of these, Oregon (us-west-2) is the cheapest (over N. California)
+  - Make sure to always double check your region when you log in!
+
+  S3 distributes all your data around the world, so it's global. It's the one exception.
+
+
+When launching an instance
+1. choose AMI
+2. choose instance type
+  general purpose is all t2 and m
+  probably can get away with t2.small
+3. put everything on default
+    network -> default
+    subnet -> no preference
+    auto-assign public ip -> use subnet setting (enable)
+    IAM -> none
+
+
+EC2 - Key Pairs
+  - EC2 uses SSH keys to grant you access to the instances you create
+  - On new instance creation, you'll be asked to select a key
+  - You can upload an existing public key, to which you have the private (~/.ssh/id_rsa.pub)
+  - or allow AWS to create a new one and download the private key
+
+  - you can remotely get into another machine as if you're using the terminal on that computer by using the ssh
+  - they use encryption for this
+  - keys come in a public and private half. if you have the private number, you can prove to the public user that you have the private key.
+
+  ON TERMINAL: ls -al ~/.ssh/
+
+  $ ssh -i ~/.ssh/key.pem ubuntu@<public_ip>
+  example: ssh -i ~/ .ssh/mac.pem ubuntu@34.212.31.144
+
+  open ssl
+  open ssl genrsa
+
+
+EC2-Volumes (EBS)
+  - think of AWS as every machine having an external hard drive?
+  - network attached storage (NAS)
+  - volume (ebs - elastic block storage)
+    - can only be plugged into one machine at a time
+  - instance storage - only stores temp. if you turn it off, nothing will persist
+
+  - by default, instances created are completely clean, and any data stored will not persist are machine termination
+  - you can add persistent storage to any instance using EBS Volumes
+  - Volumes will be auto-mounted in ubuntu under /mount/
+  - A volume can only be attached to a single instance at a time
+  - We will not be using EBS storage during our exercises
+
+
+EC2 - Load Balancers
+  - AWS offers load balancers known as ELBs (elastic load balancers)
+  - ELBs allow you to add instances to the pool of machines
+  - Many services integrate with ELBs and will auto-add
+  - ELBs allow you to configure request routing via inbound prot/protocol and output port/protocol
+  - ELBs can automatiaclly check the health of an instance by requesting a configurealble URL and consdiering 2XX status code healthy
+
+  - ELBs have auto health check and integrate with the other services
+  - spooky is his(Gene's) app name
+  - every 30 seconds the ELB makes an HTTP request to make a health check. 200 requests are healthy. If it isn't 200, then it will send it to a different machine.
+  - So on load balancer's listeners
+    - If you get a request from port 80, send back to 80
+    - If you get a HTTPS request on 443, use the SSL certificate to handshake, but then use 80 (public) for the parts behind it
+
+
+EC2 - Security Groups
+  - Security Groups are applied to all instances and ELBs
+  - They are similar to a firewall and restrict all traffic destined to that machine according to configurable rules
+
+  - frustrating
+  - in security group, for inbound, add a new rule
+    - for that new port range
+    - if the source was 0.0.0.0/0 if means for any IP address
+    - he had two for 1 rule, because 1 is for IPv4 and the other IPv6
+
+
+EC2 - VPCs
+  - VPSc are analagous to an office network
+  - Inside the VPC, machines can access each other via na internal IP
+  - Outside, machines are accessible according to sec group rules
+  - We will be using the default VPS setting for all of the exercises
+
+  - fakes a small network and makes a new IP address that the machines in the fake network can use
+  - much faster because they are proximally located
+
+
+RDS
+  - RDS is a utility to automatically setup an EC2 instance, with a database service running on it
+  - RDS offers Mysql, Progres, Oracle, SQL Server and others
+  - RDS also enables you to configure the database settings via the UI
+  - RDS can also be used for common database maintenance tasks, such as backups, creating slave dbs, or restoring snapshots
+
+  -Snapshots are Amazon's word for backups. They do it everyday around 5AM
+
+  - When things break usually the first thing to go is the database!
+  - Amazon has a thing where you can make read replicas. (master slaves).
+    - Literally, RDS -> instance -> right drop down tab with the words Read Replica
+
+
+S3
+  - S3 is a distributed file storage system
+  - You can upload files via the AWS API
+  - Files can be private or public
+  - S3 is outside of region settings
+
+
+CloudFront
+  - is a distributed CDN (proxy)
+  - It is outside of the region settings
+  - Can be configured to serve content from an application server or an S3 bucket
+  - Can be configured to use a custom domain
+  - Expiry/Invalidation of cached content can be configured
+  - Invalidation can also be caused by API
+
+  - When deploying, you gotta have the CDN delete all your cache or your code won't work as intended
+
+
+Certificate Manager
+  - the certificate manager stores any SSL certificates that you wish to use in other AWS services
+  - We will be using this to enable HTTPS in our application
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+__
