@@ -1,0 +1,46 @@
+Continuous Delivery: Introduction to concepts and tools
+
+Continuous Delivery is a software development discipline where you build software in such a way that software can be released to production at any time.
+    - Martin Fowler
+
+Continuous Delivery is when:
+- your software is deployable throughout its life-cycle
+- your team prioritizes keeping software deployable over working on new features
+- anyone can get fast, automated feedback on the production readiness of their systems anytime someone makes a change to them
+- you can perform push-button deployments of any version of the software to any environment on demand
+
+- Continuous Deployment - every changes goes through the pipeline and automatically gets put into production, resulting in many production deployments every day.
+- Continuous Delivery - you are able to make frequent deployments but may choose not to do it, usually due to businesses preferring a slower rate of deployment. In order to do Continuous Deployment, you must be doing Continuous Delivery
+- Continuous Integration - Integrating, building and testing code within the deployment environment. Continuous Deployment builds on this, dealing with the finals stages required for production deployment.
+  In order to do Continuous Deployment, one must be able to continuously integrate and deliver.
+
+
+Tools
+Most common CI tools are Jenkins, Hudson, Travis and Bamboo.
+They detect changes in the code repository and trigger set jobs or tasks.
+
+  Jenkins and Hudson
+    Both share the same code base and have similar features.
+    Easy to extend, powerful and free
+    Advantage: # of plugins and community support
+    Downside: architecture based on plugins is instable.
+      - plugins are of different quality and an update can break existing jobs or cause unexpected changes
+    Difference between the two:
+      - Jenkins is OSS (Open Source Project)
+      - Hudson continued under Oracle -> then to Eclipse Foundation in 2012
+        - Hudson is more oriented toward enterprise organizations
+        - Hudson has cleaner code, stability and performance but Jenkins has more numbers (commits, codes, plugins, users)
+
+  Bamboo
+    - Atlassian made it, so integrates well with their products (JIRA, Confluence, BitBucket, etc.)
+    - Easier and sexier than Jenkins
+    - Downsides: price and extensibility. Only tool here that is not free.
+
+  Travis
+    - Advantage: simple
+      - based on a single file .tavis.ylm that resides in the root of your code
+      - Travis knows what should be done without any need to explicitly define the flow.
+      - Strongly dependent on GIT. Do not use with other version control systems.
+      
+
+---
