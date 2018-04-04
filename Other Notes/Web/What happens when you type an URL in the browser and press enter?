@@ -2,7 +2,79 @@ What happens when you type an URL in the browser and press enter?
 https://medium.com/@maneesha.wijesinghe1/what-happens-when-you-type-an-url-in-the-browser-and-press-enter-bb0aa2449c1a
 
 1. You type maps.google.com into the address bar of your browser
-2. The browser checks the cache for a DNS record to find the corresponding IP address of maps.google.com
-DNS (Domain Name System) is a database that maintains the name of the website (URL) and the particular IP address it links to. every single URL on the internet had a unique IP address assigned to it.
 
-3. If the requested URL is not in the cache, ISP’s DNS server initiates a DNS query to find the IP address of the server that hosts maps.google.com.
+2. The browser checks the cache for a DNS record to find the corresponding IP address of maps.google.com
+DNS (Domain Name System) is a database that maintains the name of the website (URL) and the particular IP address it links to.
+Every single URL on the internet has a unique IP address assigned to it.
+The IP address belongs to the computer which hosts the server of the website we are requesting to access.
+DNS's main purpose is for human-friendly navigation.
+The browser checks four caches to find the DNS record:
+1. Checks browser cache. The browser maintains a repository of DNS records for a fixed duration for websites you have previously visited.
+2. Checks OS cache.Browser makes a system call to your computer OS to fetch the record since the OS also has a cache of DNS records.
+3. Checks router cache.
+4. Checks ISP cache.
+Caching information at so many levels is important for regulating network traffic and improving data transfer times.
+
+
+3. If the requested URL is not in the cache, ISP's DNS server starts a DNS query to find the IP address of the server that hosts maps.google.com.
+DNS query - a search of multiple DNS servers on the internet until it finds the correct IP address for the website
+It is a recursive search, because the search will continue to repeat from DNS server to DNS server until it either finds the IP address or returns an error saying it was unable to find it.
+
+the ISP's DNS is called the DNS recursor, because it's finding the proper IP address of the intended domain name
+the other DNS servers are called name servers, because they perform a DNS search based on the domain architecture of the website domain name.
+
+Domain Architecture
+-root domain (.)
+-top level domains (edu  org  gov  com  au)
+-second level domains (openoffice   expedia   microsoft  congress)
+-third level domains (www.microsoft.com    download.microsoft.com    sales.microsoft.com) (the www download and the sales part)
+
+Each domain will redirect to the level below until it finds the matching IP address.
+
+These requests are sent using small data packets which contain information such as the content of the request and the IP address it is destined for. These packets travel through many networking equipment before it reaches the correct DNS server. If these packets get lost, you'll get a request failed error. Otherwise, it will reach the correct DNS server, get the correct IP address and come back to the browser.
+
+
+4. Browser initiates a TCP connection with the server.
+With the IP address, the browser will build a connection with the server that matches that IP address to transfer information.
+TCP is the most common protocol used for any type of HTTP request.
+
+TCP connection is established using a process called the TCP/IP three-way handshake. 3 step process where the client and server exchange SYN and ACK messages to establish a connection.
+1. Client machine sends a SYN(synchronize) packet to the server over the internet asking if it is open for new connections.
+2. If the server has open ports that can accept and initiate new connections, it'll respond with an ACKnowledgement of the SYN packet using a SYN/ACK packet.
+3. The client receives the SYN/ACK packet from the server and will acknowledge it by sending an ACK packet.
+TCP connection is now established.
+
+
+5. Browser sends an HTTP request to the server.
+Browser sends a GET request. Could be POST request if user is entering credentials or submitting a form.
+The request will also have other information such as browser identification (User-Agent header), types of requests that it will accept(Accept header) and connection headers asking it to keep the TCP connection alive for additional requests. Also pass information in cookies.
+
+
+6. Server handles the request and sends back a response.
+The server has a web server that receives the request from the browser and it passes it to a request handler. The request handler reads the request, it's headers and cookies to know what's being requested and updates the server's info if needed. Then it assembles a response in JSON, XML or HTML as needed.
+
+
+7. Server sends out an HTTP response
+Server response includes the web page you requested, the status code, compression type (Content-Encoding), how to cache the page (Cache Control), any cookies to set privacy information, etc.
+5 types of Status Codes:
+- 100 => informational message only
+- 200 => success
+- 300 => redirect client to another URL
+- 400 => error on the client's part
+- 500 => error on the server's part
+
+
+8. Browser displays the HTML content
+Browser displays HTML in phases.
+1. Render bare bones HTML skeleton
+2. Check HTML tags for GET requests for images, CSS, JavaScript, etc. These are cached by the browser so it doesn't have to fetch them again.
+
+
+
+
+
+
+
+
+
+End
