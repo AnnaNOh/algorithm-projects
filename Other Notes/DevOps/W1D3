@@ -1,0 +1,70 @@
+W1D3 Continuous Integration/Deployment - Jenkins
+
+Jenkins is a CI tool
+Continuous Integration
+  - gets triggered by source code commits
+  - run any tests for frontend or backend code
+    - regression testing: if you find a bug, and fix the bug, write a test to make sure you fixed it
+  - builds any artifacts
+  - publishes the artifacts
+  - triggers a deploy in Opsworks
+  - many CI systems are configured by a config file in the source code repo
+  - can build multiple branches and only deploy specfic branches to specfic environments
+
+  - CI tool connects with some form of source control and links it to a deployment system
+  - CI gets triggered by git commit or git pull
+  - builds the final working files of the working system
+  - build like webpack
+  - it builds any artifacts (production js files, rails assets)
+  - sacred artifacts are source code that cannot be changed because it's the standard
+  - In Jenkins, you do it through the UI
+    - for the others, you use a single configuration file (yml) that will do it
+
+  -Icons if CI:
+    - CodeShip
+    - Travis CI
+    - Solano Labs
+    - Circle CI
+    - Jenkins
+      - only one that is not a SASS product.
+      - Jenkins is open source and more difficult/robust
+      - Java
+
+Jenkins
+  - open source pluggable build workflow manager with a web UI
+  - plugins and public plugin repository allow Jenkins to be integrated with many services
+  - projects are configured in workflow stages
+    - source control
+    - build steps
+    - post build steps
+  - each stage of the workflow can impact the next step (e.g. on failure)
+  - project can be configured to trigger each other
+  - the web UI shows a dashboard that can visualize build status as well as test results
+
+
+  - build environment
+    - issues with version locking
+      - in the gem files, you must specify the version number or every new version will break your code
+    - rvm allows you to have 2 versions of ruby and you can switch between
+  - build tab
+
+  (Might have to rename the databases)
+  - ON TERMINAL: config/database.yml
+
+  - rails divides static assets and dynamic ones
+  - takes all the images out and puts it in a public directory
+
+
+
+Jenkins - Source Control
+ - can work with many diff source control systems
+ - github uses web hooks (http requests)
+ - jenkin github plugin can support github webhooks
+ - can be configured to only run on certain branches
+
+
+
+
+
+
+____

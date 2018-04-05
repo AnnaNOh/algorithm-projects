@@ -1,6 +1,8 @@
 Professional Guides: Continuous Integration and Continuous Delivery
+W1D2 Reading
 Video: https://www.youtube.com/watch?v=xSv_m3KhUO8
 By: Github Training & Guides
+
 
 Continuous Integration (CI)
 - a workflow strategy that helps ensure everyone's changes will integrate with the current version of the project
@@ -21,3 +23,13 @@ CI is needed for CD (continuous delivery and continuous deployment)
  Github uses webhooks to send messages to external systems about activity in your projects.
 For each event type you can specify the subscribers to inform about each event.
 Once the CI server finishes processing about the current commit, it will send Github's status API a message about the status (whether the changes passed or not)
+
+Continuous deployment works in a similar way.
+Anytime the master branch gets a new commit, the CI provider gets a current copy of the project and deploys the master branch to production.
+Github also has a deployment api to customize your deployment if needed.
+
+
+Review
+- CI is a work flow strategy to ensure all changes will integrate
+- CD is developing to release at any time
+- Github tracks and communicates about changes to your code using webhooks and APIs

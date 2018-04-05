@@ -162,21 +162,64 @@ Certificate Manager
   - the certificate manager stores any SSL certificates that you wish to use in other AWS services
   - We will be using this to enable HTTPS in our application
 
+  - SideNote: You can pin things up on the top bar for AWS
+
+
+Route 53
+  - Route 53 is a domain name manager
+  - You can register new domains, or transfer existing domains to AWS nameservers
+  - Once you have a domain hosted on AWS, you can configure DNS records for the records
+  - Route 53 integrates gracefully with other AWS services, allowing you to do things that would be difficult on other hosting platforms (geodns, elb)
+
+  - create a new hosted zone
+
+
+Cloudwatch
+  - monitors the health of your servers
+  - monitored resources include:
+    - CPU
+    - RAM
+    - Network
+    - Hard Disk
+  - "alerts" are configureable in the AWS UI
+  - alerts notify devs by email when resource usage passes given thresholds
+  - can be integrated with other notification services (pagerduty)
+
+
+Opsworks
+  - Enable the automation of machine configuration
+  - Uses "Layers" to specify roles for each machine
+  - Can use chef or puppet to author setup scripts
+  - Scripts get triggered by instance lifecycle events
+  - Deployment scripts can be triggered by API
+  - Integrated well with other AWS Services
+  - More detail to come
+
+  - Fleet management/IT orchestration
+
+
+IAM
+  - IAM will come up frequently throughout your AWS usage
+  - Identity and Access Management
+  - We are gonna ignore IAM for this course
+  - IAM allows teams of devs to use the same AWS account with separate privileges configured by an admin
+  - IAM also allows you to create roles that are not intended for use by humans, but for API usage
+
+API, Tokens & CLI
+  - AWS API requires authentication via 2 tokens
+    - aws_access_key_id
+    - aws_secret_access_key
+  - tokens can be managed via (account name) -> "my security credentials"
+    - top left, my security credentials
+  - easiest way to interact with AWS API from your local machine is to use the aws_cli tool
+    - tool also looks for credentials in 2 files under ~/.aws:
+      - credentials
+      - config
+  - config file stores the default region setting (us-west-2)
+
+  
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+FINISHED
 __
