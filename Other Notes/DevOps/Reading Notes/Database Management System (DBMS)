@@ -1,0 +1,22 @@
+Database Management System (DBMS)
+W1D4
+https://searchsqlserver.techtarget.com/definition/database-management-system
+By: Margaret Rouse
+
+DBMS lets users create, read, update and delete data in a database.
+DBMS serves as an interface between the database and end users or application programs.
+
+DBMS manages 3 things:
+1. data
+2. database engine - allows data to be accessed, locked and modified
+3. database schema - defines the database's logical structure
+These 3 help provide concurrency, security, data integrity, and uniform administration procedures.
+DBMS supports typical database admin tasks such as change management, performance monitoring/tuning, and backup and recovery.
+DBMS are also responsible for automated rollbacks, restarts, recovery, logging and auditing of activity.
+
+
+
+
+
+
+___
