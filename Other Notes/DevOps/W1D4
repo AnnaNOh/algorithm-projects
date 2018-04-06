@@ -1,0 +1,147 @@
+W1D4  RDS & Database Management
+
+RDS Overview
+- RDS provides pre-configured instances of common relational databases
+- Because many of the features of these databases are shared across all implementations, the UI provides controls for common features
+  - mySQL and Postgres are relational databases (RDS)
+
+On AWS
+  after making a database with Amazon RDS
+  endpoint is the most important point
+  take snapshot and create a backup is super quick to make a backup
+
+Relational Databases
+- Data is stored in tables
+- Tables have rows and columns
+- Underlying data-structure is typically a BST or Array (fixed fields)
+  - Actually it's typically both a BST and Array
+- Queries (searching) is typically performed via SQL
+- able to relate different tables
+- primary key is typically disk represented
+- able to provide additional indexes to increase search speed
+- Data is stored not in RAMS but in disks?
+
+example:
+User
+[{id: __, name:__, pw:__}]
+
+BST (binary search tree) -> has logn look up and logn insert
+primary key is the key to the BST
+on disk it uses the primary key to store the data contiguously
+  on disk it is written one after another
+  in a separate place, we take the keys out and build out the BST
+  the value in the tree node is the location on the disk for that data
+  disk is an array like record in order of the primary key
+  appending on the end is quick but inserting into the tree is bad.
+AVL -> auto balancing binary tree
+
+if you search by username when you organized by id then you have to do a table scan
+  - no nice way to do this except sorted hash (but that's a ruby thing and there's issues with that too)
+
+BST
+reads:  O(logn) usually
+        O(n) in worst case where it isn't in the tree?
+writes: O(logn)
+
+When your database gets really big, any queries that require a scan rather than a lookup will slow down a lot
+  WHERE or JOIN clause really slow it down
+That's why you want to make an index based on username (what you wanna search for)
+
+Take a look at all the queries running slowly figure out where to add indexes.
+Reads improve with more indexes, but writes get slower. You have to update multiple trees.
+  write: 1 logn => 7 log n if you had 7 different indexes because you have 7 trees
+
+Interviewer: "You have a slow web app. What do you do?"
+Gene: First thing I would do is look at the database.
+
+write "explain analyze" before the database query (select * from users as u right join playlists ...)
+  you can see actual time - 5.19 units in this case
+  - sometimes in small tables it might be more effective to just search the entire table than running a search so this example isn't perfect
+  - it also tells you what parts took what time.
+    - looking up user "squeeze_fan" took 3.01 units
+  - adding an index reduced the time by .5
+
+in AWS you can have it log slow queries (queries that take more than 5 seconds)
+Analytics also gives you read and write graphs
+
+
+3 ways to scale databases
+- Read Replica
+  - Data having a single source of truth with Master Slave models
+  - Master/Slave model
+  - Master is read/write
+  - Slave is read only, used for large reads and as backups
+  - Master uses transaction log shipping to update slave
+  - Indexes can vary between master and slaves
+      The slaves can have indexing because it is read only. But the master doesn't have to have that index, so its write is still quick.
+
+- Sharding
+  - Vertical Sharding
+    If you have multiple tables, look at their relationship.
+    If there are any tables with relations that are separate from the others, then divide the database.
+      - Taking a monolithic application and dividing it into microservices => Vertical Sharding
+  - Horizontal Sharding
+    If there are rows that don't relate to other rows.
+    Think like Slack. Your app-academy slack account is not gonna be joined to other slack accounts. So per client the databases don't overlap.
+      - Database per client
+
+
+Acidity for databases
+  Acid -> It updates all or updates zero
+  Atomicity
+  Consistency
+  Isolation
+  Durability
+  If there's pending write, then don't let the read happen
+  In practice, you just choose a consistency setting and don't think about it!
+
+
+Backups (Snapshots)
+  (we're gonna manually do this today)
+  We're gonna go to Heroku and sending it to AWS. Asking postgres to dump it all over
+  Manually take backups in postgres:
+    pg_dump --host=<host1> <dbname1> > latest.dump
+    pg_restore --host=<host2> --dbname=<dbname2> latest.dump
+
+
+
+Project for Today
+
+Endpoint setting value for instagram:
+instagram.c6wc1ps0qybc.us-west-2.rds.amazonaws.com
+Endpoint for instagram-restore:
+instagram-restore.c6wc1ps0qybc.us-west-2.rds.amazonaws.com
+
+
+connect to the new DB with the terminal command
+psql -U <username> -h <endpoint> postgres
+
+
+!!!there was the typo here with role!!!
+creating a username and password
+create role <app_name> with login;
+\password <app_name>;
+
+create a DB
+grant <app_name> to <user_name>;
+create database <app_name>_production owner <app_name>;
+\q
+
+username:
+annaoh
+
+pg_restore --verbose --clean --no-acl --no-owner --host=instagram.c6wc1ps0qybc.us-west-2.rds.amazonaws.com --port=5432 --username=instagram --password --dbname=instagram_production latest.dump
+
+
+
+
+
+
+
+
+
+
+
+
+
+___
