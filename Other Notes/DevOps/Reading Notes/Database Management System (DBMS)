@@ -12,7 +12,7 @@ DBMS manages 3 things:
   - engine - a program that performs a core or essential function for other programs. can also refer to a special purpose program that uses deep learning algorithms to query data.
 3. database schema - defines the database's logical structure
 These 3 help provide concurrency(parallel processing), security, data integrity(assurance that data is uncorrupted and can only be accessed/modified by those authorized to do so), and uniform administration procedures.
-DBMS supports typical database admin tasks such as change management(systematic approach to dealing with transition or transformation of an organization's goals, proceses or technologies), performance monitoring/tuning, and backup and recovery.
+DBMS supports typical database admin tasks such as change management(systematic approach to dealing with transition or transformation of an organization's goals, processes or technologies), performance monitoring/tuning, and backup and recovery.
 DBMS are also responsible for automated rollbacks, restarts, recovery, logging and auditing of activity.
 
 DBMS's major function is providing a centralized view of data that can be accessed by multiple users, from multiple locations and in a controlled manner.
