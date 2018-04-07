@@ -1,7 +1,163 @@
 W1D5 Puppet, Chef and Opsworks
 
+SIDE NOTE:
+check instance on aws
+click and check if root device is ebs and /dev/sda1
+you can turn it off (stop) as long as it has an ebs (elastic block storage)
+  - save yourself some money
 
 
+orchestration software
+puppet and chef -> written in ruby
+ansible and saltstack -> written in python. newer
+
+deploying to a large fleet - series
+- what if you had 4 machines you had to add ssh into to deploy jenkins?
+- used to have user write a script to connect and run on a machine. then disconnect. then on to the next one.
+  - but what if one of the servers were down? then we're gonna have errors with our servers
+- we want a repeatable process that's atomic
+  - one unit of work. to keep all the machines in the same state
+
+- deploying to a large fleet can happen in series or in parallel?
+  - series -> one at a time
+  - parallel -> done at once together at the same time
+    - need to know current state of the machine
+
+issues and concerns
+- downtime is always a concern so speed is desired
+  - takes time to run these commands
+- we need to know state of machine at all times
+- deployment scripts are comprised of multiple steps
+- failure of a single step can cause the machines to be in an unknown state
+- failures can occur from:
+  - bugs in the scripts
+  - network issues
+  - version locking issues
+  - resource inconsistencies
+- we can mitigate risks by:
+  - minimizing network distance
+  - automating as much as possible
+  - idempotency with rollback
+    - idempotency - if i run it twice, the second time should have no side-effects
+
+deployment strategies - cutover
+- the m in the picture is the manager (the server that runs puppets or chef)
+opswork provides one for you
+our server will trigger the manager and it will do the needed work on the servers
+FIELD TERMINOLOGY: direct-cutover
+
+Deployment stratefies - pilot
+- take one server and test/pilot the next version before you deploy.
+
+Deployment strategies - parallel
+- update half the servers. have them run in rotation. and do AB testing in the wild.
+- in the wild, parallel is more likely. because this one will have no downtime.
+
+Other concerns (we're not gonna do this, but it's cool stuff)
+- database migration
+  - basically you run another script for database migrations
+- load balancing
+  - mid deployment check the health of the servers with elb and adjust traffic appropriately
+- A/B testing
+  - in the parallel world, you see which product has more or less use
+- push vs pull
+  - push: one way is for the user to tell the servers to deploy
+  - pull: the other way is for the servers to check in with the user regularly and ask what the latest version is
+- multiple server roles with multiple environments
+
+Puppet
+- Analogy: If you're driving through town and you get lost. and you see Gene walking on the street and you ask gene, I'm going to a concert where's the concert hall. Gene can either say "I know where you are now and where you are going so I'm going to give you very specific instructions based on that state" "drive left and then go straight and right" "but these instructions can only work at that state" OR he can tell you "it's latitude xyz and longitude zyx" Puppet is the second one.
+  - puppet has every resource (file/anything) dependent on other resources
+  - builds an entire dependency graph and then packages it as a script
+- the code you write is not a script. they're blocks.
+  - your code does not deploy sequentially. instead it will run the blocks needed to reach the endpoint.
+- Ruby (DSL - domain specific language)
+  - used ruby to make their own puppet language that's very much like ruby
+- Puppet communications bi-directionally with puppet agents on the machines
+  - tell puppet server, your new git commit is this. puppet will then change to that state. you just define the new end state of the machine.
+  - this is called eventually consistent
+- Puppet is an enterprise level software. If you're below 100 servers, puppet is a bit overkill. Use chef instead.
+
+Chef
+- chef has a bigger community because it's easier to use
+- recipes are combined into cookbooks (pluggable)
+- each step in the script is modeled as a resource
+- chef recipes define repeatable steps to get a server into a desired state
+- Ruby (DSL)
+
+Ansible
+- does not use the middle man server role. it uses the non-middle man approach
+- parallel
+- connects to your machine and then bundles the scripts, builds an executable module, sends it down through ssh, then disconnects
+- quicker to get started. runs into the same problems with mid-way failure and uncertain machine state.
+  - but great way to get something started. good first dev ops
+- no servers, daemons or databases
+- python
+
+SaltStack
+- increasing in popularity
+- client/server model like puppet and chef
+- parallel or series
+- Python
+- SLS scripts
+
+Opsworks
+- AWS service
+- client/server model
+- custom server and custom client agent
+- uses either puppet or chef scripts
+  - puppet costs money so do chef until the company gets huge
+- integrates with lifecycle of AWS EC2 instances
+
+Opsworks Units
+- Stacks - group machines together based on shared resources
+- Layers - group machines together based on roles.
+    - custom recipes per lifecycle event
+- Apps - deployable identifier. scripts can use app name.
+  (detach all previous definitions. think instead of it as a string)
+  during deployment you tell it which other variable to add to the json file. the script does something with that string, but the string does not do anything with it. (that's slightly a lie, but ignore it we're not gonna use that)
+
+Opsworks isn't too restrictive
+Anything in the same layer is the same type of machine.
+  In the same layer, the same script can work in that layer.
+You have these Opworks units available to you, but you don't have to use them.
+
+Layers on AWS
+  On setup, run this script
+  On deploy, run this script
+Where we define what scripts are run on a new machine
+Each Layer can also have custom variables and settings
+Where you define the environment variables
+  - hierarchy of override: stack => layer => instance
+  - stack can be overrun by layer which can be overrun by instance
+good place to add your secret stuff
+
+Opsworks Lifecycle
+- instance start
+- manual run setup -> set up
+- any instance starts -> configure
+- deploy app  -> deploy
+  - deploy script for the entire stack (not layer) with that new info from app
+- undeploy app -> undeploy
+- instance stop -> shutdown
+(we'll only care about setup or deploy)
+
+Custom JSON
+Opsworks (and Chef) use a json configuration scheme to apply Chef Attributes
+- stack level
+  - overwritten by layer
+    - overwritten by deployment activity
+chef internally uses a similar override scheme in its recipes:
+  - default
+  - force_default
+  - normal
+  - override
+  - force_override
+  -automatic
+
+** Project **
+Tonight go through phase 1 (setting up Opsworks)
+On Monday do phase 2 (writing the scripts)
 
 
 _______
