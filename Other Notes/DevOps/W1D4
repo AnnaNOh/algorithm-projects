@@ -105,12 +105,15 @@ Backups (Snapshots)
 
 
 
+
+---------------
+
 Project for Today
 
 Endpoint setting value for instagram:
 instagram.c6wc1ps0qybc.us-west-2.rds.amazonaws.com
 Endpoint for instagram-restore:
-instagram-restore.c6wc1ps0qybc.us-west-2.rds.amazonaws.com
+instagram-restore.c6wc1ps0qybc.us-west-2.rds.amazoncd aws.com
 
 
 connect to the new DB with the terminal command
@@ -129,12 +132,10 @@ create database <app_name>_production owner <app_name>;
 
 username:
 annaoh
-
-pg_restore --verbose --clean --no-acl --no-owner --host=instagram.c6wc1ps0qybc.us-west-2.rds.amazonaws.com --port=5432 --username=instagram --password --dbname=instagram_production latest.dump
-
-
-
-
+appname:
+instagram
+password:
+NO EXCLAMATIONS
 
 
 
