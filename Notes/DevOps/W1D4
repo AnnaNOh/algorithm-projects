@@ -113,8 +113,7 @@ Project for Today
 Endpoint setting value for instagram:
 instagram.c6wc1ps0qybc.us-west-2.rds.amazonaws.com
 Endpoint for instagram-restore:
-instagram-restore.c6wc1ps0qybc.us-west-2.rds.amazoncd aws.com
-
+instagram-restore.c6wc1ps0qybc.us-west-2.rds.amazonaws.com
 
 connect to the new DB with the terminal command
 psql -U <username> -h <endpoint> postgres
