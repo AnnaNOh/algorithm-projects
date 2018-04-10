@@ -1,0 +1,112 @@
+W2D1 Chef Recipes
+
+Cookbook Setup and Berkshelf
+  - Berkshelf is a public cookbook repository
+  - need to be in a specific order with attributes, recipes and templates
+  - we list our dependecies in metadata.rb and install with:
+    Terminal:  berks vendor <path>
+  - every cookbook has its own attributes (that big json object) (variables you can pass on)
+    - defaults are declared in default.rb file
+  - for example nginx cookbook has a whole bunch of default parameters
+  - nginx cookbook has a bunch of recipes
+    - node in recipes refer to the big json object
+      - node['nginx']['package_name'] will go check the json for the nginx variable and the package name with it
+  - package is a keyword to install something using the default package manager on the machine (for ubuntu that's apt)
+    - check the docs for the right package manager
+      - ex. homebrew_package for macs
+  - service -> means that this is a process that I want to run for a long time in the background somewhere
+  - use attributes file to create the nginx config file
+
+
+If you had a blank ubuntu you would:
+  - install ruby-ng::dev (ruby)
+  - install nodejs (webpack component)
+  - install nodejs::npm (npm)
+  - install postgres (postgres client libraries)
+  - install webserver (nginx)
+  - install unicorn - your production application runner
+Gotta add these to your package by having in your setup.rb script
+  - apt_package "zlib1g-dev"
+  - apt_package "libpq-dev"
+
+
+init.d for linux
+  - google init.d service template
+service manager for windows
+launchd is for mac
+  - these monitor and run background tasks
+
+
+TERMINAL:
+sudo service jenkins
+sudo service postgres
+sudo service postgres status
+sudo service postgres start
+sudo service postgres stop
+
+Gene typed:
+ssh -i ~/.ssh/macpem ubuntu@
+sudo service
+vi /etc/init.d/
+  (you'll see jenkin here)
+sudo service jenkins status
+  (tell you info on jenkins, if jenkins wasn't running it'll tell you jenkins isn't running)
+
+
+setup.rb
+- at the first template, setup and install service
+- then, setup and install nginx
+- then, setup and install unicorn
+now we just need the app to be pulled from git and to run
+flags on the lefthand side (d means directory) (drwxr-xr-x)(owner, group, other -> permissions )
+mode -> '0777' -> means rwx for user, group, and other
+unix sockets - more reliable than web sockets but can only communicate within the same machine??
+why unicorn? -> like rails server, but with a 100 concurrent connections
+  - can start multiple instances of your app, proxies requests to instances, and monitors them for failure. it's your app in production
+  - if you're cpu is hyperthresded (multiple cores) best to run a unicorn with 2x your cores
+
+
+deploy.rb
+- stop existing service
+- make sure directory is created
+- git checkout the latest version of master
+- install all dependencies
+  - install gems, then install npm packages
+  - build webpack compile
+  - clobber and compile rails assets
+- migrate db manually for now
+- restart the service
+- if we use a CDN we can avoid these steps
+
+execute -> hard to rollback
+  - NOT itempotent
+  - has a negative codesmell
+  - in practice use someone else's cookbook or write our own so that if bundle fails, delete
+
+
+metadata.rb
+- metadata.rb is similar to package.json
+- it contains our cookbook name, description etc.
+- it also contains our external cookbook dependencies
+  - lists all the other dependencies that you need
+  - in our code add
+    depends "apt" "= 6.1.4"
+
+To download the books locally:
+cd cookbooks/my_cookbook
+berks vendor ..
+
+
+when you go into opsworks
+go into the stack
+go into the layer
+instances
+if you try to add an instance (add in size small)
+then hit start => will take 5 mins to see if successful or failure
+(this is going to be a painful process)
+
+
+
+
+
+________
