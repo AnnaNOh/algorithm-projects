@@ -1,6 +1,189 @@
 W2D2 DNS & SSL
 
 
+Overview
+- DNS
+- Encryption
+- SSL
+- Certificate Signing - Lets Encrypt
+- Route 53 & Certificate Manager
+
+You could do this job just fine without today's lecture
+We're gonna be doing some math cause security is a lot of math
+
+
+DNS (Domain Name Service)
+- Hierarchical Server structure
+- Responsible for mapping a string url to an Ip address
+- 13 Root servers around the world (IANA)
+  - [a-m].root-servers.net
+- Nslookup
+
+- elb's ip address needs to get registered in the global
+- go to domain's registrar and purchase a domain
+    - purchasing a domain gets you the right to change dns settings for the domain
+- IANA takes 13 servers(named a to m)
+  - NSentry (name server entry)
+  - www.gene.com
+    - ask 1 of the 13 servers, where do i find more about www.gene.com
+    - it redirects you to another name server
+    - name server hierarchy
+    - type (ns type)
+    - ip address
+  - ON TERMINAL:
+    nslookup
+    google.com
+      - should return a IP address
+    nslookup -type=NS spooky-gh.com
+      - notice that nameserver = awsdns
+      - you can change the ns to have it come from a different server
+  - Route53
+    - go to hosted zones
+    - you can get any registrar and have it point to aws
+    - notice there are A and CNAME kinds of records
+      - A maps a name to an IP address
+      - a CNAME maps a name to another name
+        - like google.co or google.net should redirect to google.com
+  ON TERMINAL:
+  ping google.com
+    - should give you google's ip address
+  On console Route 53, you can get alias targets for s3 buckets
+- some tools will ask you to prove that you own the domain
+  ON TERMINAL: nslookup -type=TXT _acme-challenge.www.spooky-gh.com
+    - it should return a text value set on Route 53 under TXT type
+
+DNS - Record Types
+- A - Address - maps name to IP
+- CNAME - Canonical name - maps name to other names
+- MX - mail exchanger record
+    - (more for receiving emails)
+- NS - name server records
+- TXT - text records
+
+
+SSL - Symmetric Cryptography
+  Examples:
+  - DES - 56 bit key + 8 bit parity (DES = Data Encryption Standard)
+  - 3DES -  168 bit key + 8 bit parity
+            112 bit key + 8 bit parity
+            56 bit key + 8 bit parity
+  - Blowfish - 32-448 bit key
+  - AES - 128 bit key (AES = Advanced Encryption Standard) (there used to be competition but AES won it all)
+          192 bit key
+          256 bit key
+
+SSL - Asymmetric Cryptography
+  - main reason why it exists - for both parties to have a secure key so that they can have a secure conversation
+  Examples:
+  - RSA - 2048 bit private key
+  - ECC - 256 bit private key
+
+  - technically you can decrypt with one and encrypt with the other. it doesn't really matter which is private/public
+  - if i give you the public key, it must be difficult to figure out the private key
+  - need math thing that's easy to solve with key but hard to solve without it
+    - trap door functions (hard to go one way, easy to go the other way)
+      - prime factorization
+        - what are the 2 prime factors of 299?
+        - what's 13 x 23?
+        - RSA family of algorithms
+        - factor this really big number (faster than logn)
+      - the discrete logarithm problem
+        - ECC (elliptic crypography) uses this
+
+
+So tonight we're going to setup a domain name and the other half is that we're going to set up a certificate
+
+Historically we used security for protesting information
+  - speakeasies
+  - Turing machine
+  - money
+  - credit card transactions
+
+2 techniques used in cryptography used in a digital perspective but both have deep roots
+- symmetric
+- asymmetric
+
+we're not talking about hashing passwords
+- hashing takes some data from the domain (which is infinite) and runs it through a function and gets a range (which is fixed and limited)
+- going forward is super easy, but going back from encrypted text to plain text is hard without a key
+- hash functions have no key per say, so it's not cryptography (no way to get back)
+  - more of a way to validate information
+- crypto unlike hashing can move forwards and backwards
+
+crypto
+domain => e(m1, k1) => range
+domain <= d(m2, k2) <= range
+- symmetric if key1 = key2
+- asymmetric if key1 != key2
+    - like in PGP public and private key pairs are asymmetric
+
+- symmetric is the preferred method
+  - but the problem is how can i get you the key without other people getting it
+- asymmetric is when you have a math key pair that's public/private and i have a math key pair that's public/private
+  - each hold the private and the other person is the only one who can decode the messages
+
+origin of ciphers
+- 1500 BCE - Mesopotamian tablets with encrypted recipe for pottery glaze
+- 500 BCE - Hebrew scholars use substitution ciphers evident in Jeremiah
+- 300 BCE - Greeks, Romans and Spartans used transposition ciphers to communicate on the battlefield
+  - scytale
+- 800 AD - Al-Kindi writes a manuscript defining a method for deciphering messages using frequency analysis. Also included information on "polyalphabetic ciphers"
+- 1939 AD - WW2 begins and the Enigma machine advances cryptography by easily enabling multiple cipher techniques, customized by a "key"
+
+Substitution Ciphers - swap character with another character
+Transposition Cipher - change order of the characters in a message
+
+AES - Encryption
+- use any key for this cipher
+- with that key make a mapping set
+- make another mapping set
+- cipher text
+- symmetric is super fast which is why it's the preferred method
+- 2 substitution cycle is like having two numbers and doing XOR
+- then 2 transposition cycles according to the key
+- then mixes the columns according to the key
+
+
+SSL - RSA
+- for a well chosen set of numbers e, d, and n:
+  (m^e)^d mod n = m mod n
+  as long as we have e, d and n then we can get the original number
+- public key = (n, e)
+- private key  = (n, d)
+- generating d takes a while. the longer the key, the longer it takes to make.
+
+
+SSL in action
+TLS/SSL defines several different choices foe encryption algorithm
+Also defines multiple methods for creating a shred symmetric key securely
+- RSA Client Key
+- Diffie-Hellman Key Exchange
+  - happens every time you connect to a website
+    Side 1                            Side 2
+  A = random                        B = random
+  p = random  => (send over p, g)
+  g = random
+  a = (g ^ A) * mod p     => a      b = (g ^ B) * mod p
+  k = (b ^A) * mod p      <= b      k = (a^B) * mod p
+  outsiders can hear all a, b, p and g, but NOT A and B
+  SSL is a 2 way handshake - send up random numbers, send down random numbers and now you can share messages
+  ELB does SSL (which are just RSA keys). ELB takes a certificate as a parameter and ELB will be responsible for the handshake
+  On Amazon, this is done with certificate manager
+
+Browsers have a list of trusted certificate assigners (certificate authorities) and the public must trust these
+Let's Encrypt (trying to do this all for free)
+We're gonna download a tool call certbot
+  ON TERMINAL:
+    sudo certbot certonly --manual --perferred-challenges dns -d spooky-gh2.com www.spooky-gh2.com
+
+
+
+
+
+
+
+
+
 
 
 ____
