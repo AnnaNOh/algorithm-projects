@@ -1,11 +1,130 @@
 Graduated Job Search W1D3 - CSS Lecture
 4/11/2018
 
+Cascading Style Sheets(CSS)
+ - allows several style sheets to influence the doc
+ - priority scheme resolves conflicts of different declarations
+ - allows us to separate content from presentation
 
+SCSS
+ - an extension of CSS
+ - variables
+      ex. $primary-color: #333;
+          $font-stack: Helvetica, sans-serif;
+          body {
+          }
+ - nesting
+      ex. nav {
+            ul {
+              margin: 0;
+              padding: 0;
+              list-style: none;
+            }
+          }
+ - importing partials
 
+Selectors
+ - selectors are patterns used to select HTML elements
+    section.   class
+    section#   id
+    section*   direct or nested child
+    section,
+    (space)
+    >
+    section +   siblings
+    section ~   siblings same except it doesn't have to follow
+    [type=submit] type of
+    :hover  pseudo-selector
 
+Specificity Hierarchy
+  - inherited styles
+  - universal styles *
+  - element and pseudo-elements
+    ::before
+      - can say content: "and some string" and it'll add that to everything before the element
+    ::after
+  - classes, attributes and pseudo-classes
 
+  - avoid inline styling and the !important flag
+  - combinators have no effect on specificity  (+ , ~)
 
+  - in-line style > id > class
+
+HTML Box Model - everything in HTML is a box
+CSS Box Model
+  - default property for certain tags
+  - margin
+      border
+        padding
+          content
+  - overwrite with box-sizing: border-box;
+    - will subtract border and padding from the total width/height to make styling simpler
+    - recommendation: add to the css reset file
+
+Display
+  display: block
+    always starts on a  new line
+    full width
+    can set width and height
+  display: in-line
+    does not start on a new line
+    only take as much width as necessary
+    width and height setting has no effect
+  display: in-line block
+    flows with surrounding text. does not start on a new line
+    can set width and height
+  display: none;
+    used to hide/show content
+  display: flex;
+    flexbox(flexible box) - easier to layout, align and distribute space among items in a container
+    flex-grow: 1;
+      - the children maintain proportionate widths are responsive to the parent size
+    flex-wrap: wrap;
+      - children after given a min width, will wrap around as needed
+
+Demo
+  ON TERMINAL:
+  gem install sass
+  sass --watch main.scss:style.css
+    - sass is now watching for changes
+
+example on main.scss
+  @import 'partials/reset';
+    - use this to add the reset easily
+
+Bootstrap
+  - open source professional design that is easy to add
+  - responsive design
+  - used by a lot of companies in production
+  - CSS Grid does a lot what sass was originally designed to do
+
+  on your main html
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/more string here"
+  <script src="https://maccdn.bootstrapcdn.com/more bootstrap's html"
+
+  - principles of good design:
+    - mobile first
+
+Media Query
+  example:
+    500 pixels and wider we want two columns
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+    @media screen and (min-width: 500px) {
+      .col {
+        float: left;
+        width: 50vw;
+      }
+    }
+
+    1000 pixels and wider we want 3 columns
+    @media screen and (min-width: 1000px) {
+      .col {
+        width: 33.33vw;
+      }
+    }
 
 
 _____
