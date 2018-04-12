@@ -1,0 +1,27 @@
+W2D3 CDN Integration
+
+Overview
+  - Cache
+  - HTTP Req/Resp
+  - CDNs
+  - Cache control/expiry
+  - Cache validation & vary
+  - Cloudfront
+
+Cache
+  - Application Cache vs HTTP Cache
+  - very fast storage, typically in memory
+  - great for storing results to frequent queries
+  - invalidation can be a problem
+  - memcached
+    - older and large community source base
+    - simple data types
+    - HTTP Cache integration
+  - Redis
+    - more modern, less robust
+    - complex data types
+    - often hand-rolled solutions
+  
+
+
+_____
