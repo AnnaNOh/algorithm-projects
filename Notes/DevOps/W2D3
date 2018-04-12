@@ -21,7 +21,83 @@ Cache
     - more modern, less robust
     - complex data types
     - often hand-rolled solutions
-  
+
+    - application cache
+      - memcache d
+      - redis
+        - like 1 big hash table being stored on disk
+        - lookup can be O(1) as as long as you supply a key
+
+HTTP (hyper text transfer protocol)
+  - typically available on port 80
+  - storing data closer to user
+  - what cdn's do
+
+  send up:
+  request line (GET, PUT, POST, DELETE)
+  url relative to the domain (/doc/test.html)
+  request headers (key value pairs)
+    host: www.test101.com
+  then a gap
+  then a request body
+
+  sent back:
+  status line (status code like 200, 300, 400)
+    200 is healthy.
+    100 is continue.
+    300 is try request again. request was good but something changed.
+    400 is an error on the request side of things. request was wrong.
+    500 is server error.
+
+CDNs
+  - proximally located around the world to large populations
+  - less hops, less delays
+  - typically backed by an application
+  - uses http cache headers to decide how long to keep the file in cache
+  - some provide invalidation via API
+  - building your own is hard, best to use:
+    - akamai
+    - cloudfront
+    - cloudera
+    - chinacache
+
+Cache control/expiry - cache control
+  - "cache-control" http header is used to direct caching rules for any device in the request/response route
+  - tells the user's cdn and their browser how to cache
+    - no-store - do not cache or even store the file in the client
+    - no-cache - do not cache the file
+      - client can store locally but no cdn caching
+    - public - may be cached by any device (some status codes don't cache by default)
+    - private - store in browser cache only
+      - gotta check if diff from no-cache or private
+    - max-age=<seconds> - set maximum cache time
+    - must-revalidate - use validation headers
+      Cache validation
+      - last-modified - weak validation
+        - if-modified client header
+      - etag - fingerprints the response and returns the hash value
+        - if-none-match client header
+      Vary header
+      - vary header tells any caching device to cache multiple copies based on another given header (the key)
+      - what if it wants to send different resolutions based on user-agent header
+        - cdn now has to switch based on the user-agent
+        - vary user-agent => now the cdn keeps a copy for each kind of user-agent it sees
 
 
+Adjusting cdns will make the website x10 faster
+
+
+2 most important
+  - nginx
+    - will return static file first
+  - unicorn
+
+Amazon Cloudfront (it's CDN)
+  - under the hood it uses Squid (open source)
+  - can use all those previous headers
+  - can also override http headers
+  - provides "web" and "rtmp"
+    - rtmp deals with streaming media files
+      - think about youtube video files that are 2 hours long that you can click an hour behind
+      
 _____
