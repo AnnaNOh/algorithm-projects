@@ -1,0 +1,128 @@
+W2D4 Monitoring
+
+when something goes wrong, how do we know?
+
+Overview
+ - system monitoring
+ - app monitoring
+ - custom data monitoring
+ - cloudwatch
+ - notifications
+
+
+System Monitoring
+ - different services require different amounts of resources
+ - databases
+    - cpu
+ - web servers
+    - response time
+    - request queueing
+ - job runners
+   - possibly cpu or ram
+ - caches and queues
+   - ram
+ - benchmarking tools
+   - apache bench
+ - open source software:
+   - nagios
+   - ganglia
+   - zenoss
+      - all these tools show metrics
+      - but they're older. these days, they're cheaper and faster tools
+      - apache benchpress:
+        -On Terminal: ab -n 100 -c 10 https://
+ - aws
+   - cloudwatch
+
+
+  - ON TERMINAL: top
+    - shows you cpu utilization
+  - amazon's ec2 dashboard shows cpu utilization
+    - if you have abnormally high utilization, it can be stuck in a loop
+    - you could also add time-based instances
+      - time based instances help with traffic that changes with time
+        - CNN in the morning
+      - load based instances
+    - most of the time tho, your app isn't going to be cpu gated
+      - db heavy / algorithm heavy apps are gonna need the cpu
+    - best metric is how long the average request response takes to process
+    - request queueing is also a good metric of traffic
+    - some of these metrics come from nginx and aws can't monitor it
+    - fetch execute cycle (cpu)
+    - ARM CPU Architecture
+      - ALU(arithmetic.logic unit) executes => RAM stores and fetches => control unit decodes
+    - opsworks is responsible for stacks.
+
+
+
+App Monitoring (APM)
+  - tracking of common web frameworks allows for greater insights
+  - for example rails:
+    - track model queries
+    - track timing at different layers (MVC)
+    - track users
+  - code level analysis
+  - application error tracking
+  - saas services
+    - new relic -$
+    - datadog
+    - rollbar
+
+
+Custom Data Monitoring
+  - often there are business metrics that you may want to track
+    - click through rates
+    - total sales
+  - or sometimes developer level metrics
+    - server processing rates
+    - internal queue lengths
+    - other timing metrics
+  - many APM services offer custom metric tracking
+  - as do many system monitors
+  - open source
+    - StatsD
+
+    - doesn't have to be related to tech
+    - can be business metrics (like # of applications per day)
+      - can be tied to if application is working
+    - you can use metrics to debug code at scale
+    - StatsD is an open source. Written by etsy.
+      - does not have an interface
+      - graphing tool that receives metrics and returns graphics, fast, quick, free
+
+
+Cloudwatch
+  - cloudwatches is AWS's monitoring software
+  - tightly integrated with system metrics from ec2
+  - weak on APM (application performance monitoring)
+  - provides custom metrics
+  - customizable "alarms"
+  - trigger emails (or other)
+
+
+Notifications
+  - most software engineering teams will have members on-call for technical support
+  - on-call staff won't check email while asleep
+  - phone services help wake them
+  - services:
+    - Pagerduty
+    - Twilio
+    - Google Voice
+  - who watches the watchers?
+    - what happens if the monitoring system breaks?
+    - ultimately company makes the last watcher PagerDuty so they're not responsible
+
+
+ cis? log on linux?
+ it's a small app that logs information
+
+Demo
+Cloudwatch
+  browse metrics
+  click into a metric you want
+  create an alarm
+  
+
+
+
+---

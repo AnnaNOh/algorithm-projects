@@ -1,0 +1,10 @@
+W2D5 Wrap Up
+
+Dev Ops - General
+  - dedicated hardware per service allows us to customize the machine resources per the services requirements, eliminating wasted resources
+  - load balancers allows traffic to a single endpoint to be shared across multiple machines
+  - databases are the most difficult to scale across multiple machines
+  - caching allows us to not do unnecessary processing, saving time and money
+
+  - first thing I would do is to look at data queries and see if there's a bottle neck
+  
