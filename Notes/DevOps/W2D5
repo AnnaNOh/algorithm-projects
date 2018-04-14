@@ -6,5 +6,140 @@ Dev Ops - General
   - databases are the most difficult to scale across multiple machines
   - caching allows us to not do unnecessary processing, saving time and money
 
+  Interview Maybe
   - first thing I would do is to look at data queries and see if there's a bottle neck
-  
+    - look at the slowest queries and analyze them and see if I can improve those queries
+    - adding indexes
+  - the network resources is now slow
+    - monitor network querying
+    - network performance monitoring
+    - caching helps this
+
+AWS
+  - aws is the combination of many servces, distributed across many physical regions
+  - ec2
+  - cloudfront
+  - route53
+  - cloudwatch
+  - opsworks
+  - rds
+  - s3
+
+  - ec2 is the heart, instances , ssh keys, lod balancers (elbs)
+
+  some things we didn't look at that's available at AWS
+  - big data stuff, machine learning, map reduce, elastic search,
+
+CI/CD
+  - development flow
+  - commit to github, hits CI system, CI system makes sure it passes the tests, then it builds, copy to s3
+  - Jenkins is the oldest and most fully fledged
+    - so base level it can run scripts/ execute shells
+    - more experience setting up the full system
+
+RDS & Databases
+  - Relational Databases are like alrge B-Trees on disk
+  - Commonly, in making databases more scalable and reliable, ops members will have to :
+    - manage indexes to increase performance
+    - create read replicas and shard traffic and/or data
+    - create regular backups and restore backups when there are issues
+  - RDS is an AWS service that provides common relational databases, set up in the cloud
+  - RDS provides a configuration UI to change common database settings
+
+  - git merge squash => taking many git commmits and merging it into 1 commit
+
+
+  - when whiteboarding
+  - dont worry about syntax
+  - worry about control flow or logic
+  - you shouldn't start writing the code until you know what to write
+
+Puppet, Chef & Opsworks
+  - fleet management software helps deploys to many servers
+  - puppet uses a dependency graph of resources to achieve an "eventually consistent" state, written in ruby
+    - your destination is given, but you have t figure out how to get there
+  - chef is a simpler idempotent scripting tool, also written in ruby
+  - ansible is a serverless model that uses compiled "modules" to achieve the desired state
+  - opsworks is an aws service that wraps either puppet or chef scripts to provide an integrated AWS experience
+
+  - on your application servers, you only really need nginx and unicorn
+
+Chef Recipes
+  - set structure
+    - recipes
+    - attributes
+    - templates
+  - cookbooks can be shared via berkshelf repo and recipes for many common services are already created
+
+DNS & SSL
+  - DNS maps a human readable name to an IP address
+  - 4 types of DNS records
+    - nameserver => tells other servers where to get info
+    - alias => IP to human name
+    - c names => human name to human name
+    - mx records => email servers
+  - symmetric encryption and asymmetric
+    - symmetric is faster but needs both parties to have a shared key
+    - asym is often used to set up sym key
+    - SSL is an example of this
+    - certificates are verified by being signed by a certificate authority
+    - AWS provides Route 53 to manage domains & certificate manager to manage SSL certificates
+
+CDNs
+  - provide fast response times by caching your static content on servers proximally located to large pops throughout the world
+  - in front of application servers, proxy the request if the response is not in the cache
+  - it's all about the invalidation of data
+    - expiry can be based on time
+    - content can be validated by checking to see if the contet has changed
+  - cloudfront is AWS's CDN and can be backed by application servers or S3
+
+  - we can get around this, by having every deploy have a different url
+
+Monitoring
+  - many tools for mornitoring system level metrics (resources)
+    - CPU, RAM, HDD, Network utilization
+  - application monitoring
+    - average login session, etc
+  - business metrics
+    - how much are in the carts, etc
+  - Cloudwatch is the tool for that
+
+How to turn off the AWS to save your money:
+  - Posted in the slack channel as well!!!
+  - To get Heroku to use postgresql instead of the RDS, that's gonna be the only thing you need to get heroku back to normal
+    - your AWS should still work even after this change. it'll just be indep. deploymnet will be fine for aws as long as you set up the hook
+
+    Cloudwatch costs 10cents per warning so turn those off
+    Cloudfront, just remove the cdn host parameter
+      - but you get charged per views. so it's super cheap
+    OpsWorks
+      - stop all instances (the app will not work anymore)
+
+  - RDS
+    - A bigger decision you gotta make
+    - $5-10/month
+  - Cert Manager is free so it's all good
+  - Route 53 costs $0.50/month per hosted zone
+
+  - S3 is pay per data transferred, you till not be charged if you stop using it
+
+
+GENERAL ADVICE
+  - graphids?
+    - multiple diff types of graphs
+    - has a print statement, so you can visualize if the data is being stored correctly
+  - get good at reading code
+      - practice
+      - ruby source code
+      - rails
+      - active record
+      - develop code smells
+  - ask for access to github repo so that you can read their code
+
+
+
+
+
+
+
+___
