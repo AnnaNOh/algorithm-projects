@@ -1,3 +1,5 @@
+// COMPLETED
+
 var generateParenthesis = function(n) {
   let result = [''];
 
