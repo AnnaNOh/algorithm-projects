@@ -1,39 +1,52 @@
 var generateParenthesis = function(n) {
+  let result = [''];
+
+  while (result[0].length !== 2 * n) {
+    let tempResult = [];
+    let i = 0;
+
+    while (i < result.length) {
+      if (valid(result[i], '(', n)) {
+        tempResult.push(result[i] + '(');
+      }
+      if (valid(result[i], ')', n)) {
+        tempResult.push(result[i] + ')');
+      }
+      i += 1;
+    }
+
+    result = tempResult;
+  }
+};
+
+var valid = function(testString, parentheses, n) {
   let left = 0;
   let right = 0;
-  let string = '';
-  return [...new Set(recurseParenthesis(n, string, left, right))];
-};
 
-var recurseParenthesis = function(n, string, left, right) {
-  let result = [];
-
-  if (left === n && right === n) {
-    return string;
-  }
-
-  if (left < n) {
-    string += '(';
-    left += 1;
-    // console.log(string);
-    result = result.concat(recurseParenthesis(n, string, left, right));
-    if (right < n && right < left) {
-      string += ')';
+  // count left and right parentheses
+  for (let i = 0; i < testString.length; i++) {
+    if (testString[i] === '(') {
+      left += 1;
+    }
+    if (testString[i] === ')') {
       right += 1;
-      // console.log(string);
-      result = result.concat(recurseParenthesis(n, string, left, right));
     }
   }
-  if (right < n && right < left) {
-    string += ')';
-    right += 1;
-    // console.log(string);
-    result = result.concat(recurseParenthesis(n, string, left, right));
-  }
 
-  return result;
+  // determine valid using count
+  if (parentheses === '(') {
+    if (left < n && left >= right) {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    if (right < n && right < left) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 };
 
-generateParenthesis(4);
-
-// ["(((())))","((()()))","((())())","((()))()","(()(()))","(()()())","(()())()","(())(())","(())()()","()((()))","()(()())","()(())()","()()(())","()()()()"]
+generateParenthesis(3);
