@@ -27,8 +27,10 @@ var maxDepth = function(root) {
   }
 };
 
+// 1 line solution of the same thing
 // return root ? Math.max(maxDepth(root.left), maxDepth(root.right)) + 1 : 0;
 
+// if the input was an array like I first thought
 // var maxDepth = function(root) {
 //   let result = 0;
 //   while (Math.pow(2, result) < root.length){
