@@ -1,4 +1,4 @@
-// INCOMPLETE
+// COMPLETE
 
 // Given a binary tree, find its maximum depth.
 //
@@ -18,28 +18,24 @@
 // return its depth = 3.
 
 var maxDepth = function(root) {
-  maxDepthRecursive(root);
-};
-
-var maxDepthRecursive = function(node, depth) {
-  if (root.val !== null && (root.left || root.right)) {
-    return depth;
-  }
-
-  depth += 1;
-  let leftChild = node.left;
-  let rightChild = node.right;
-
-  if (leftChild.val !== null) {
-    let leftChildDepth = maxDepthRecursive(leftChild, depth);
-  }
-  if (rightChild.val !== null) {
-    let rightChildDepth = maxDepthRecursive(rightChild, depth);
-  }
-
-  if (leftChildDepth > rightChildDepth) {
-    return leftChildDepth;
+  if (root) {
+    let left = 1 + maxDepth(root.left);
+    let right = 1 + maxDepth(root.right);
+    return Math.max(left, right);
   } else {
-    return rightChildDepth;
+    return 0;
   }
 };
+
+// return root ? Math.max(maxDepth(root.left), maxDepth(root.right)) + 1 : 0;
+
+// var maxDepth = function(root) {
+//   let result = 0;
+//   while (Math.pow(2, result) < root.length){
+//     result += 1;
+//   }
+//   return result;
+// };
+//
+// let a = [3,9,20,null,null,15,7];
+// console.log(maxDepth(a));
