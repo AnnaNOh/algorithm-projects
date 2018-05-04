@@ -1,0 +1,55 @@
+A Txonomy of Tech Debt
+by: Bill "LtRandolph" Clark - engineering manager for the Champions team
+04/10/2018
+
+https://engineering.riotgames.com/news/taxonomy-tech-debt
+
+
+Metrics
+To make good decisions on what to fix now and what to fix eventually use
+3 major metrics:
+  - impact
+    - player facing issues - bugs, missing features, unexpected behavior
+    - developer facing issues - slower implementation, workflow issues, random useless shit to remember
+  - fix cost
+  - contagion
+    - spreading from other systems interfacing with the afflicted system from copy pasting data or from influencing the way other engineers choose to implement new features
+
+Types of debt
+  - Local Debt
+      - black box model of programming
+      - local system works reliably, but actual code is hideous
+      - Ex. Jarvan's Cataclysm - made of 24 minions
+        - gameplay effects to a location or set of locations can be done by spawning invisible minions
+        - impact: 1/5
+        - fix cost: 2/5
+          - need to write some bespoke math to calculate collisions with a ring and constructive sold geometry
+        - contagion: 1/5
+  - MacGyver Debt
+      - solutions made by connecting two conflicting systems together
+      - Ex. C++'s std::string vs. custom AString class
+        - std::string has a lot of hidden memory allocations and performance costs
+        - impact: 2/5
+        - fix cost: 3/5
+        - contagion: -2/5
+          - most MacGyver debt is intellectual cost of switching modes when crossing boundaries
+          - best way to fix is to make the better (global) system more desirable at a local level
+  - Foundational Debt
+      - like the U.S. Customary Units
+      - an assumption baked into the way the entire thing works
+      - Ex. Riot's use of Lua Scripting Language
+        - Designers on League use a tool called BlockBuilder to create complex behaviors by stringing together blocks of functionality like getting the distance between points, spawning minions, dealing damage, or doing all manner of script flow control
+        - impact: 4/5
+          - every callstack has ~6 marshalling stack frames for each frame of BlockBuilder logic
+          - Not cheap for server CPU usage
+        - fix cost: 4/5
+          - current proposal is to create a wrapper class that behaves like the lua object
+        - contagion: 4/5
+      - Best way t fix foundational debt is to stand up the new system alongside the old one
+  - Data Debt
+      - Starts with tech debt from one of the other categories
+      - After a ton of content (art, scripts, sounds) gets built on that code deficiency, it gets hard to tell what'll break if you try to fix anything
+      - like DNA
+      - Ex. Block Parameters in BlockBuilder scripting language
+        - trying to give 25 bonus armor, but giving 20 bonus armor actually gave 40 somehow
+        - Data is rarely subjected to technical review, and because it is acceptable to create new data by copy/pasting existing data, it is very contagious
