@@ -27,21 +27,21 @@
 //  */
 
 var reverse = function(x) {
-  let result = "";
-  let xString = String(x);
+  let res = 0;
+  let str = String(x);
 
-
-  let i = 0;
-  while (i < xString.length){
-    if (xString[i] === "-"){
-      result = result + xString[i];
+  for (let i = str.length-1; i >= 0 ; i = i-1){
+    if (str[i] === "-"){
+      res = res * -1
     } else {
-      result = xString[i] + result;
+      res = res * 10 + Number(str[i]);
     }
-    i += 1;
   }
-
-  result = Number(result);
-
-  return result;
+  
+  if (res <= -1 * Math.pow(2, 31)) return 0;
+  if (res >= Math.pow(2, 31) - 1) return 0;
+  return res;  
 };
+
+let a = 1534236469;
+reverse(a);
