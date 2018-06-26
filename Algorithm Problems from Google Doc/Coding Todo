@@ -1,0 +1,69 @@
+// "javascript invoked only once"
+  // working wth closures 
+
+// javascript with conditionals 
+
+
+// Contract
+public interface IHello
+{
+    ///
+    string Words();
+    
+    ///
+    Task Messages();
+    
+    /// 
+    string getWords(string connection);
+    
+}
+
+//Implementers
+class HelloWorld: IHello
+{
+    public string Words(string)
+    {   
+    
+        if !string
+            raise "no argument given"
+        end 
+        return "these are words:" + string
+    }
+    
+    public string DatabaseName()
+    {
+        return "LmZZZZ";
+    }
+}
+
+LINQ Query
+
+
+HelloWorld newWorld = new HelloWorld()
+
+
+newWorld.DatabaseName() // LmZZZZ
+
+
+// unit test for DatabaseName()
+
+ testCase = new HelloWorld()
+ 
+ testCase.Words("test words").eq()
+ 
+ testCase.Words().expect(throw "no arguments given")
+ 
+ testCase.DatabaseName().eq("LmZZZZ")
+
+
+
+
+
+class HelloWorld {
+    constructor(string) {
+        this.string = string;
+    }
+}
+
+
+let words = new HelloWorld("my name is Yujie")
